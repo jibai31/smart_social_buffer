@@ -1,0 +1,16 @@
+// sticky footer
+$footer-width: 60px;
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: $footer-width;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer-width;
+  background-color: #f5f5f5;
+}
