@@ -1,0 +1,19 @@
+.social {
+  .social-signin-buttons {
+    a {
+      width: 64px;
+      height: 64px;
+      display: inline-block;
+      text-indent: 3000px;
+    }
+    #googleSignin {
+      background: url("/assets/social/google-64.png")
+    }
+    #facebookSignin {
+      background: url("/assets/social/facebook-64.png")
+    }
+    #twitterSignin {
+      background: url("/assets/social/twitter-64.png")
+    }
+  }
+}

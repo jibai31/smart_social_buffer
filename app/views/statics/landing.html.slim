@@ -1,0 +1,13 @@
+h1 Hello!
+
+.row
+  .col-sm-6
+    .social
+      h3 Log in with a social account
+      .social-signin-buttons
+        = link_to "Google", user_omniauth_authorize_path(:google_oauth2), id: "googleSignin"
+        = link_to "Facebook", user_omniauth_authorize_path(:facebook), id: "facebookSignin"
+        = link_to "Twitter", user_omniauth_authorize_path(:twitter), id: "twitterSignin"
+  .col-sm-6
+    h3 Sign up with a password
+    = render 'devise/signup'

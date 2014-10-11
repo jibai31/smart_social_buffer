@@ -4,6 +4,7 @@ html
   body
     = render "layouts/navbar"
     .container
+      = render 'layouts/flash_messages'
       = yield
     #footer
       .container

@@ -1,0 +1,7 @@
+- if !flash.empty?
+  #alertBox
+    - flash.each do |name, msg|
+      - alert_type = get_alert_type(name)
+      .alert *{class: alert_type}
+        button type="button" class="close" data-dismiss="alert" &times;
+        = msg.html_safe
