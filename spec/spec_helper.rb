@@ -12,9 +12,41 @@
 #
 # The `.rspec` file also contains a few flags that are not defaults but that
 # users commonly want.
-#
+
+# Load Rails
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+I18n.locale = :en
+require 'rspec/rails'
+require 'capybara/rspec'
+# require_relative 'support/capybara_remote'
+require 'database_cleaner'
+
+# Requires supporting ruby files with custom matchers and macros
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+
+# Mock all OmniAuth calls
+OmniAuth.config.test_mode = true
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+
+  # Include macros
+  config.include SessionMacros
+
+  # Avoid repeating FactoryGirl.create all the time, can simply call create
+  config.include FactoryGirl::Syntax::Methods
+
+  # Capybara config
+  config.use_transactional_fixtures = false
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.start
+  end
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

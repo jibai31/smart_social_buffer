@@ -4,7 +4,8 @@
       width: 64px;
       height: 64px;
       display: inline-block;
-      text-indent: 3000px;
+      text-indent: -9000em;
+      overflow: hidden;
     }
     #googleSignin {
       background: url("/assets/social/google-64.png")
