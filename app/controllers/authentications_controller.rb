@@ -13,6 +13,14 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
     try_sign_in_user
   end
 
+  def destroy
+    @authentication = Authentication.find(params[:id])
+    if @authentication
+      @authentication.destroy!
+    end
+    redirect_to :back
+  end
+
   private
 
   def try_sign_in_user
@@ -40,7 +48,7 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
         logger.info "Most likely the oauth info did not contain any email (eg, Twitter account)"
         logger.info user.errors.messages
 
-        session['devise.omniauth'] = auth.except('extra')
+        session['devise.omniauth'] = auth
 
         flash.notice = "C'est presque bon ! Entrez un email pour finir votre enregistrement."
         redirect_to new_user_registration_path

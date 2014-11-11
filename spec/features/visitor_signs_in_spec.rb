@@ -14,6 +14,15 @@ feature 'Visitor signs in' do
     user_should_be_signed_in_as "John Facebook"
   end
 
+  scenario 'with a new provider missing the email' do
+    sign_in_with_provider "Twitter"
+
+    fill_in :user_email, with: "john.smith@example.com"
+    click_button "Sign up"
+
+    user_should_be_signed_in_as "John Doe"
+  end
+
   scenario 'for the first time' do
     sign_in_with_provider "Google"
 

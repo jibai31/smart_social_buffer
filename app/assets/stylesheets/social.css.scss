@@ -1,11 +1,19 @@
 .social {
   .social-signin-buttons {
-    a {
+    .social-img {
       width: 64px;
       height: 64px;
       display: inline-block;
       text-indent: -9000em;
       overflow: hidden;
+      margin-right: 15px;
+    }
+    .social-provider {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .provider {
+      margin-bottom: 15px;
     }
     #googleSignin {
       background: url("/assets/social/google-64.png")

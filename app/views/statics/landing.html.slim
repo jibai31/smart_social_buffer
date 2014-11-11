@@ -6,6 +6,6 @@ h2 Save time posting your content on social networks!
     .social
       h3 Log in with a social account
       .social-signin-buttons
-        = link_to "Google", user_omniauth_authorize_path(:google_oauth2), id: "googleSignin"
-        = link_to "Facebook", user_omniauth_authorize_path(:facebook), id: "facebookSignin"
-        = link_to "Twitter", user_omniauth_authorize_path(:twitter), id: "twitterSignin"
+        = facebook_signin_button
+        = google_signin_button
+        = twitter_signin_button

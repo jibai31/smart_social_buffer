@@ -1,0 +1,10 @@
+.provider
+  - provider_name = provider_friendly_name(provider)
+  .social-img.pull-left id="#{provider_name}Signin"
+  .social-provider= provider_name.capitalize
+  - if auth = current_user.connected?(provider)
+    = link_to "Disconnect", auth, method: :delete, class: "btn btn-default"
+  - else
+    = link_to "Connect", user_omniauth_authorize_path(provider, display: "popup"), class: "btn btn-success"
+  .clearfix
+  hr
