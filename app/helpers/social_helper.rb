@@ -1,5 +1,7 @@
 module SocialHelper
 
+  # Signin buttons
+
   def google_signin_button
     signin_button(:google_oauth2)
   end
@@ -14,6 +16,10 @@ module SocialHelper
 
   def twitter_signin_button
     signin_button(:twitter)
+  end
+
+  def linkedin_signin_button
+    signin_button(:linkedin)
   end
 
   def signin_button(provider, options = {})

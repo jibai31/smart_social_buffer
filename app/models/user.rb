@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   # Devise
   devise :database_authenticatable, :registerable, # :confirmable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:google_oauth2, :facebook, :twitter]
+         :omniauthable, :omniauth_providers => [:google_oauth2, :facebook, :twitter, :linkedin]
 
   def password_required?
     (authentications.empty? || !password.blank?) && super

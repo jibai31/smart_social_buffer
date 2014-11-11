@@ -13,6 +13,10 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
     try_sign_in_user
   end
 
+  def linkedin
+    try_sign_in_user
+  end
+
   def destroy
     @authentication = Authentication.find(params[:id])
     if @authentication
