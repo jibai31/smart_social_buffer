@@ -1,6 +1,11 @@
 # encoding: UTF-8
 class RegistrationsController < Devise::RegistrationsController
 
+  def edit
+    @blog = Blog.new
+    super
+  end
+
   private
 
   def build_resource(*args)

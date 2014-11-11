@@ -1,12 +1,12 @@
 .content
-  strong= content.title
-  br
-  = content.url
+  = render 'contents/content_header', content: content
   .content-actions
-    ul.list-inline
-      li= link_to 'Add message', new_content_message_path(content)
-      li= link_to 'Edit', edit_content_path(content)
-      li= link_to 'Delete', content, data: {confirm: 'Are you sure?'}, method: :delete
+    = link_to 'Add message', new_content_message_path(content), class: 'btn btn-default btn-primary'
+    ul.list-inline.pull-right
+      li= link_to edit_content_path(content), class: 'btn btn-default' do
+        b.glyphicon.glyphicon-pencil
+      li= link_to content, data: {confirm: 'Are you sure?'}, method: :delete, class: 'btn btn-default' do
+        b.glyphicon.glyphicon-trash
   .content-messages
     - content.messages.each do |message|
       .message
@@ -18,4 +18,3 @@
           strong Posted 
           | #{message.post_counter} times
         .message-text= message.text
-  hr

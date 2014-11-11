@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141111173622) do
+ActiveRecord::Schema.define(version: 20141111220339) do
 
   create_table "authentications", force: true do |t|
     t.integer "user_id"
@@ -30,9 +30,18 @@ ActiveRecord::Schema.define(version: 20141111173622) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "category_id"
   end
 
   add_index "blogs", ["user_id"], name: "index_blogs_on_user_id", using: :btree
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "categories", ["name"], name: "index_categories_on_name", using: :btree
 
   create_table "contents", force: true do |t|
     t.integer  "user_id"
@@ -42,6 +51,7 @@ ActiveRecord::Schema.define(version: 20141111173622) do
     t.boolean  "post_only_once", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "category_id"
   end
 
   add_index "contents", ["user_id"], name: "index_contents_on_user_id", using: :btree

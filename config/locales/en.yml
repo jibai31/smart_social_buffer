@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  categories:
+    my_content: "My content"
+    other_peoples_content: "Other people's content"
+    questions: "Questions"
+    words_of_wisdom: "Words of wisdom"
+    quotes_from_others: "Quotes from others"
+    resources: "Resources"

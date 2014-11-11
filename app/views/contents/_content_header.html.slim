@@ -1,0 +1,7 @@
+strong
+  = content.title
+  | &nbsp;
+  = render 'categories/category', category: content.category
+br
+= link_to content.url, content.url, target: "_blank"
+br

@@ -43,6 +43,6 @@ class ContentsController < ApplicationController
     end
 
     def content_params
-      params.require(:content).permit(:title, :url, :activated, :post_only_once)
+      params.require(:content).permit(:title, :url, :activated, :post_only_once, :category_id)
     end
 end

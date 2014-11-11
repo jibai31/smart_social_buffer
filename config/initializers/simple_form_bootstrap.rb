@@ -15,7 +15,18 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
-config.wrappers :vertical_file_input, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+  config.wrappers :checkbox, tag: :div, class: 'checkbox', error_class: 'has-error' do |b|
+    b.use :html5
+    b.wrapper tag: :label do |ba|
+      ba.use :input
+      ba.use :label_text
+    end
+
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block text-danger' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
+
+  config.wrappers :vertical_file_input, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength

@@ -2,9 +2,9 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :text
     = f.input :social_network, collection: SocialNetwork.LIST, label_method: :name, value_method: :code
-    = f.input :post_only_once
+    = f.input :text
+    = f.input :post_only_once, wrapper: :checkbox, input_html: {class: 'form-checkbox'}
 
   .form-actions
     = f.button :submit

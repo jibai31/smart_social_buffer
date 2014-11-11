@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :messages
   end
 
-  resources :blogs
+  resources :blogs, except: [:index, :show, :new]
 
   devise_for :users, controllers: {omniauth_callbacks: "authentications", registrations: "registrations"}
   devise_scope :user do
