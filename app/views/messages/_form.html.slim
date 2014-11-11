@@ -1,0 +1,10 @@
+= simple_form_for([@content, @message]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :text
+    = f.input :social_network, collection: SocialNetwork.LIST, label_method: :name, value_method: :code
+    = f.input :post_only_once
+
+  .form-actions
+    = f.button :submit

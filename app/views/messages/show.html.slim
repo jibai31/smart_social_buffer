@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Content:
+  = @message.content
+p
+  strong Text:
+  = @message.text
+p
+  strong Social network:
+  = @message.social_network
+p
+  strong Post counter:
+  = @message.post_counter
+p
+  strong Last posted at:
+  = @message.last_posted_at
+p
+  strong Post only once:
+  = @message.post_only_once
+
+= link_to 'Edit', edit_message_path(@message)
+'|
+= link_to 'Back', messages_path

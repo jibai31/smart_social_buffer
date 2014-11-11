@@ -10,4 +10,10 @@ module LayoutHelper
       "alert-info"
     end
   end
+
+  def navbar_menu(title, url)
+    content_tag(:li, class: ('active' if request.original_fullpath==url)) do
+      link_to title, url
+    end
+  end
 end

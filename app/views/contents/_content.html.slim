@@ -1,0 +1,21 @@
+.content
+  strong= content.title
+  br
+  = content.url
+  .content-actions
+    ul.list-inline
+      li= link_to 'Add message', new_content_message_path(content)
+      li= link_to 'Edit', edit_content_path(content)
+      li= link_to 'Delete', content, data: {confirm: 'Are you sure?'}, method: :delete
+  .content-messages
+    - content.messages.each do |message|
+      .message
+        .social-img-sm.pull-left class="#{message.social_network}-sm"
+        .message-header
+          strong Created on 
+          = message.created_at
+          |&nbsp;-&nbsp;
+          strong Posted 
+          | #{message.post_counter} times
+        .message-text= message.text
+  hr

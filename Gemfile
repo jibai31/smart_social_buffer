@@ -19,6 +19,9 @@ gem 'font-awesome-rails'
 gem 'simple_form'
 gem 'dotenv-rails'
 
+# Useful gems
+gem 'cancancan'
+
 # Social sign in
 gem 'devise'
 gem 'omniauth-google-oauth2'

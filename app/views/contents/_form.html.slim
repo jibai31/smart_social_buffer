@@ -1,0 +1,11 @@
+= simple_form_for(@content) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :url
+    = f.input :activated
+    = f.input :post_only_once
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'

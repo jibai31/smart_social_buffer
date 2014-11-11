@@ -1,0 +1,23 @@
+h1 Listing blogs
+
+table
+  thead
+    tr
+      th Name
+      th Url
+      th
+      th
+      th
+
+  tbody
+    - @blogs.each do |blog|
+      tr
+        td = blog.name
+        td = blog.url
+        td = link_to 'Show', blog
+        td = link_to 'Edit', edit_blog_path(blog)
+        td = link_to 'Destroy', blog, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Blog', new_blog_path

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012151312) do
+ActiveRecord::Schema.define(version: 20141111173622) do
 
   create_table "authentications", force: true do |t|
     t.integer "user_id"
@@ -23,6 +23,41 @@ ActiveRecord::Schema.define(version: 20141012151312) do
 
   add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid", using: :btree
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
+
+  create_table "blogs", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "blogs", ["user_id"], name: "index_blogs_on_user_id", using: :btree
+
+  create_table "contents", force: true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "url"
+    t.boolean  "activated",      default: true,  null: false
+    t.boolean  "post_only_once", default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contents", ["user_id"], name: "index_contents_on_user_id", using: :btree
+
+  create_table "messages", force: true do |t|
+    t.integer  "content_id"
+    t.text     "text",                           null: false
+    t.string   "social_network",                 null: false
+    t.integer  "post_counter",   default: 0,     null: false
+    t.datetime "last_posted_at"
+    t.boolean  "post_only_once", default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["content_id"], name: "index_messages_on_content_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

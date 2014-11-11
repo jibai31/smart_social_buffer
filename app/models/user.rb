@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   # Associations
   has_many :authentications, dependent: :destroy
+  has_many :blogs, dependent: :destroy
+  has_many :contents, dependent: :destroy
 
   # Devise
   devise :database_authenticatable, :registerable, # :confirmable, :lockable, :timeoutable,

@@ -28,8 +28,7 @@ module SocialHelper
 
     link_to provider_name.capitalize,
       user_omniauth_authorize_path(provider, path_options),
-      class: "social-img",
-      id: "#{provider_name}Signin"
+      class: "social-img #{provider_name}-md"
   end
 
   def provider_friendly_name(provider)

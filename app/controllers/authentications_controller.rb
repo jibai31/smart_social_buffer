@@ -1,6 +1,20 @@
 # encoding: UTF-8
 class AuthenticationsController < Devise::OmniauthCallbacksController
 
+  def index
+    @authentications = current_user.authentications
+  end
+
+  def destroy
+    @authentication = Authentication.find(params[:id])
+    if @authentication
+      @authentication.destroy!
+    end
+    redirect_to :back
+  end
+
+  # Omniauth callbacks
+
   def google_oauth2
     try_sign_in_user
   end
@@ -15,14 +29,6 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
 
   def linkedin
     try_sign_in_user
-  end
-
-  def destroy
-    @authentication = Authentication.find(params[:id])
-    if @authentication
-      @authentication.destroy!
-    end
-    redirect_to :back
   end
 
   private

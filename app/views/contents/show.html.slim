@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @content.title
+p
+  strong Url:
+  = @content.url
+p
+  strong Activated:
+  = @content.activated
+p
+  strong Post only once:
+  = @content.post_only_once
+
+= link_to 'Edit', edit_content_path(@content)
+'|
+= link_to 'Back', contents_path

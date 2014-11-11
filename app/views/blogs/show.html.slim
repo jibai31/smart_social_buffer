@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @blog.name
+p
+  strong Url:
+  = @blog.url
+
+= link_to 'Edit', edit_blog_path(@blog)
+'|
+= link_to 'Back', blogs_path

@@ -1,0 +1,9 @@
+h2 Connected accounts
+
+p You have successfully linked the following accounts:
+.social
+  .social-signin-buttons
+    = render 'authentications/authentication', provider: "facebook"
+    = render 'authentications/authentication', provider: "google_oauth2"
+    = render 'authentications/authentication', provider: "twitter"
+    = render 'authentications/authentication', provider: "linkedin"

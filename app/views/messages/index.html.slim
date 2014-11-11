@@ -1,0 +1,31 @@
+h1 Listing messages
+
+table
+  thead
+    tr
+      th Content
+      th Text
+      th Social network
+      th Post counter
+      th Last posted at
+      th Post only once
+      th
+      th
+      th
+
+  tbody
+    - @messages.each do |message|
+      tr
+        td = message.content
+        td = message.text
+        td = message.social_network
+        td = message.post_counter
+        td = message.last_posted_at
+        td = message.post_only_once
+        td = link_to 'Show', message
+        td = link_to 'Edit', edit_message_path(message)
+        td = link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Message', new_message_path
