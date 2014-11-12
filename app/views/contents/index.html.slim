@@ -1,6 +1,14 @@
-h1 Contents
+.row
+  .col-sm-9.col-sm-offset-3
+    p= link_to 'Add content', new_content_path, class: 'btn btn-primary'
 
-p= link_to 'Add content', new_content_path, class: 'btn btn-primary'
+.row
+  .col-sm-3
+    strong Categories
+    ul.list-unstyled
+      - Category.all.each do |category|
+        li= link_to category, '#', class: "label #{category.label}"
 
-.contents
-  = render @contents
+  .col-sm-9
+    .contents
+      = render @contents
