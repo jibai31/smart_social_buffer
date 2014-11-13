@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class SocialNetwork
 
   def initialize(provider)
@@ -26,9 +27,10 @@ class SocialNetwork
     @@social_network_list ||= build_list
   end
 
-  def self.build_list
+  def self.build_list(providers)
+    providers ||= Devise.omniauth_configs.keys
     list = []
-    Devise.omniauth_configs.keys.each do |social_network|
+    providers.each do |social_network|
       list << SocialNetwork.new(social_network)
     end
     list

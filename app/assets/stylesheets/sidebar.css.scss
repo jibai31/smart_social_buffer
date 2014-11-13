@@ -1,0 +1,8 @@
+.sidebar {
+  li {
+    height: 25px;
+  }
+  li.active::before {
+    content: "> ";
+  }
+}

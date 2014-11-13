@@ -6,4 +6,14 @@
   .content-actions {
     padding: 10px 0;
   }
+
+  .content-actions-buttons {
+    display: none;
+  }
+}
+
+.content:hover {
+  .content-actions-buttons {
+    display: block;
+  }
 }

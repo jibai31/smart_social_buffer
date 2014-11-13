@@ -1,11 +1,11 @@
 .content
   = render 'contents/content_header', content: content
   .content-actions
-    = link_to 'Add message', new_content_message_path(content), class: 'btn btn-default btn-primary'
-    ul.list-inline.pull-right
-      li= link_to edit_content_path(content), class: 'btn btn-default' do
+    = link_to 'Add message', new_content_message_path(content), class: 'btn btn-default btn-warning'
+    ul.list-inline.pull-right.content-actions-buttons
+      li= link_to edit_content_path(content) do
         b.glyphicon.glyphicon-pencil
-      li= link_to content, data: {confirm: 'Are you sure?'}, method: :delete, class: 'btn btn-default' do
+      li= link_to content, data: {confirm: 'Are you sure?'}, method: :delete do
         b.glyphicon.glyphicon-trash
   .content-messages
     - content.messages.each do |message|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141111220339) do
+ActiveRecord::Schema.define(version: 20141113123952) do
 
   create_table "authentications", force: true do |t|
     t.integer "user_id"
@@ -52,8 +52,10 @@ ActiveRecord::Schema.define(version: 20141111220339) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"
+    t.integer  "blog_id"
   end
 
+  add_index "contents", ["blog_id"], name: "index_contents_on_blog_id", using: :btree
   add_index "contents", ["user_id"], name: "index_contents_on_user_id", using: :btree
 
   create_table "messages", force: true do |t|

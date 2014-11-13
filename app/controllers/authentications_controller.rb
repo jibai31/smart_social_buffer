@@ -14,7 +14,7 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
     if @authentication
       @authentication.destroy!
     end
-    redirect_to :back
+    redirect_to authentications_path
   end
 
   # Omniauth callbacks

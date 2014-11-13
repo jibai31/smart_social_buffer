@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module Authenticatable
   extend ActiveSupport::Concern
 
@@ -17,5 +18,9 @@ module Authenticatable
 
   def connected?(provider)
     authentications.where(provider: provider).first
+  end
+
+  def connected_accounts
+    @connected_accounts ||= SocialNetwork.build_list(authentications.map{|authentication| authentication.provider})
   end
 end

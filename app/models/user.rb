@@ -1,11 +1,12 @@
+# encoding: UTF-8
 class User < ActiveRecord::Base
   # Concerns
   include Authenticatable
+  include HasContents
 
   # Associations
   has_many :authentications, dependent: :destroy
   has_many :blogs, dependent: :destroy
-  has_many :contents, dependent: :destroy
 
   # Devise
   devise :database_authenticatable, :registerable, # :confirmable, :lockable, :timeoutable,

@@ -29,6 +29,9 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-linkedin'
 
+# Other gems
+gem 'feedjira' # Requires: sudo apt-get install libcurl3-dev
+
 group :development do
   gem 'spring'
   gem 'better_errors'

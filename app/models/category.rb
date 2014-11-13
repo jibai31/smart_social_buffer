@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Category < ActiveRecord::Base
   
   def label

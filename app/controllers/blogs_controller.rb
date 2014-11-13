@@ -1,5 +1,6 @@
+# encoding: UTF-8
 class BlogsController < ApplicationController
-  before_action :set_blog, only: [:show, :edit, :update, :destroy]
+  before_action :set_blog, only: [:show, :edit, :update, :destroy, :import]
   before_filter :authenticate_user!
   load_and_authorize_resource
   layout "contents"
@@ -10,7 +11,7 @@ class BlogsController < ApplicationController
   def create
     @blog = current_user.blogs.build(blog_params)
     if @blog.save
-      redirect_to edit_user_registration_path(current_user)
+      redirect_to @blog
     else
       render 'devise/registrations/edit', alert: "Error!"
     end
@@ -18,7 +19,7 @@ class BlogsController < ApplicationController
 
   def update
     if @blog.update(blog_params)
-      redirect_to edit_user_registration_path(current_user)
+      redirect_to @blog
     else
       render :edit
     end
@@ -26,6 +27,15 @@ class BlogsController < ApplicationController
 
   def destroy
     @blog.destroy
+    redirect_to contents_path
+  end
+
+  def import
+    if FeedImporter.new(@blog).perform
+      redirect_to @blog, notice: "Blog posts successfully imported"
+    else
+      redirect_to @blog, alert: "<strong>Something went wrong!</strong> Please verify the blog URL"
+    end
   end
 
   private

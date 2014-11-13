@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Ability
   include CanCan::Ability
 
@@ -13,9 +14,10 @@ class Ability
     can :read, [Blog, Content, Authentication], user_id: user.id
 
     # UPDATE
-    can :update, [Blog, Content], user_id: user.id
+    can :update, Content, user_id: user.id
+    can [:update, :import], Blog, user_id: user.id
 
     # DESTROY
-    can :destroy, [Blog, Content], user_id: user.id
+    can :destroy, [Blog, Content, Authentication], user_id: user.id
   end
 end

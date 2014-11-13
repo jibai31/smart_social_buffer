@@ -1,12 +1,13 @@
-p#notice = notice
+- content_for(:top) do
+  - if @blog.name.present?
+    h2= @blog.name
+  h3
+    = @blog.url
+    small
+      | &nbsp;
+      = link_to 'Edit', edit_blog_path(@blog)
+      ' &nbsp;|
+      = link_to 'Delete', @blog, data: {confirm: "Are you sure?"}, method: :delete
+  p= link_to 'Import content', import_blog_path(@blog), class: 'btn btn-primary'
 
-p
-  strong Name:
-  = @blog.name
-p
-  strong Url:
-  = @blog.url
-
-= link_to 'Edit', edit_blog_path(@blog)
-'|
-= link_to 'Back', blogs_path
+= render @blog.contents_with_messages

@@ -1,8 +1,10 @@
+# encoding: UTF-8
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   load_and_authorize_resource :content
   load_resource
+  layout "contents"
 
   def index
     # Not implemented
@@ -13,7 +15,7 @@ class MessagesController < ApplicationController
   end
 
   def new
-    @message = @content.messages.build
+    @message = @content.messages.build(post_only_once: @content.post_only_once)
   end
 
   def edit

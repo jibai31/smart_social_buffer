@@ -1,10 +1,14 @@
+# encoding: UTF-8
 class ContentsController < ApplicationController
   before_action :set_content, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   load_and_authorize_resource
 
   def index
-    @contents = current_user.contents
+    @contents = current_user.contents_with_messages
+    if filter_category_id = params[:category_id]
+      @contents = @contents.where(category_id: filter_category_id)
+    end
   end
 
   def show
