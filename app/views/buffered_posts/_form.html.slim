@@ -1,0 +1,10 @@
+= simple_form_for(@buffered_post) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :message
+    = f.input :run_at
+    = f.input :state
+
+  .form-actions
+    = f.button :submit

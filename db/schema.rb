@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141113123952) do
+ActiveRecord::Schema.define(version: 20141113170255) do
 
   create_table "authentications", force: true do |t|
     t.integer "user_id"
@@ -34,6 +34,18 @@ ActiveRecord::Schema.define(version: 20141113123952) do
   end
 
   add_index "blogs", ["user_id"], name: "index_blogs_on_user_id", using: :btree
+
+  create_table "buffered_posts", force: true do |t|
+    t.integer  "message_id"
+    t.integer  "user_id"
+    t.datetime "run_at"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "buffered_posts", ["message_id"], name: "index_buffered_posts_on_message_id", using: :btree
+  add_index "buffered_posts", ["user_id"], name: "index_buffered_posts_on_user_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"

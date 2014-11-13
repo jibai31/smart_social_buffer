@@ -8,13 +8,4 @@
       li= link_to content, data: {confirm: 'Are you sure?'}, method: :delete do
         b.glyphicon.glyphicon-trash
   .content-messages
-    - content.messages.each do |message|
-      .message
-        .social-img-sm.pull-left class="#{message.social_network}-sm"
-        .message-header
-          strong Created on 
-          = message.created_at
-          |&nbsp;-&nbsp;
-          strong Posted 
-          | #{message.post_counter} times
-        .message-text= message.text
+    = render content.messages

@@ -11,6 +11,12 @@ module LayoutHelper
     end
   end
 
+  def main_title(title)
+    content_for(:title) do
+      content_tag :h2, title
+    end
+  end
+
   def title(title)
     content_for(:top) do
       content_tag :h2, title

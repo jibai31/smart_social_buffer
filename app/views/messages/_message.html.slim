@@ -1,0 +1,9 @@
+.message
+  .social-img-sm.pull-left class="#{message.social_network}-sm"
+  .message-header
+    strong Created on 
+    = message.created_at
+    |&nbsp;-&nbsp;
+    strong Posted 
+    | #{message.post_counter} times
+  .message-text= message.text

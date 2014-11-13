@@ -1,8 +1,6 @@
 # encoding: UTF-8
 class ContentsController < ApplicationController
-  before_action :set_content, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource through: :current_user
 
   def index
     @contents = current_user.contents_with_messages
@@ -21,7 +19,6 @@ class ContentsController < ApplicationController
   end
 
   def create
-    @content = current_user.contents.build(content_params)
     if @content.save
       redirect_to contents_path
     else
@@ -39,14 +36,12 @@ class ContentsController < ApplicationController
 
   def destroy
     @content.destroy
+    redirect_to contents_path
   end
 
   private
-    def set_content
-      @content = Content.find(params[:id])
-    end
 
-    def content_params
-      params.require(:content).permit(:title, :url, :activated, :post_only_once, :category_id)
-    end
+  def content_params
+    params.require(:content).permit(:title, :url, :activated, :post_only_once, :category_id, :blog_id)
+  end
 end

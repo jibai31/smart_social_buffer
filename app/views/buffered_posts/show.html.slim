@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Message:
+  = @buffered_post.message
+p
+  strong Run at:
+  = @buffered_post.run_at
+p
+  strong State:
+  = @buffered_post.state
+
+= link_to 'Edit', edit_buffered_post_path(@buffered_post)
+'|
+= link_to 'Back', buffered_posts_path

@@ -1,7 +1,5 @@
 # encoding: UTF-8
 class BlogsController < ApplicationController
-  before_action :set_blog, only: [:show, :edit, :update, :destroy, :import]
-  before_filter :authenticate_user!
   load_and_authorize_resource
   layout "contents"
 
@@ -39,11 +37,8 @@ class BlogsController < ApplicationController
   end
 
   private
-    def set_blog
-      @blog = Blog.find(params[:id])
-    end
 
-    def blog_params
-      params.require(:blog).permit(:name, :url, :category_id)
-    end
+  def blog_params
+    params.require(:blog).permit(:name, :url, :category_id)
+  end
 end

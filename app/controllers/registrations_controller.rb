@@ -2,11 +2,6 @@
 class RegistrationsController < Devise::RegistrationsController
   layout "settings", only: [:edit]
 
-  def edit
-    @blog = Blog.new
-    super
-  end
-
   private
 
   def build_resource(*args)

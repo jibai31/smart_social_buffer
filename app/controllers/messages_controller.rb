@@ -1,17 +1,10 @@
 # encoding: UTF-8
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
   load_and_authorize_resource :content
-  load_resource
+  load_and_authorize_resource :message, through: :content
   layout "contents"
 
-  def index
-    # Not implemented
-  end
-
   def show
-    # Not implemented
   end
 
   def new
@@ -43,11 +36,8 @@ class MessagesController < ApplicationController
   end
 
   private
-    def set_message
-      @message = Message.find(params[:id])
-    end
 
-    def message_params
-      params.require(:message).permit(:content_id, :text, :social_network, :post_counter, :last_posted_at, :post_only_once)
-    end
+  def message_params
+    params.require(:message).permit(:content_id, :text, :social_network, :post_counter, :last_posted_at, :post_only_once)
+  end
 end

@@ -19,6 +19,6 @@ p
   strong Post only once:
   = @message.post_only_once
 
-= link_to 'Edit', edit_message_path(@message)
+= link_to 'Edit', edit_content_message_path(@content, @message)
 '|
-= link_to 'Back', messages_path
+= link_to 'Back', [@content, @message]

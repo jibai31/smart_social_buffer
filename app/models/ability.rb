@@ -5,19 +5,23 @@ class Ability
   # See the wiki for details:
   # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
   def initialize(user)
-    user ||= User.new # guest user (not logged in)
+
+    # Prevent access to guests
+    return unless user
 
     # CREATE
     can :create, [Blog, Content, Message]
+    can [:create, :fill], BufferedPost
 
     # READ
-    can :read, [Blog, Content, Authentication], user_id: user.id
+    can :read, [Blog, Content, Authentication, BufferedPost], user_id: user.id
+    can :manage, Message, content: {user_id: user.id}
 
     # UPDATE
     can :update, Content, user_id: user.id
     can [:update, :import], Blog, user_id: user.id
 
     # DESTROY
-    can :destroy, [Blog, Content, Authentication], user_id: user.id
+    can :destroy, [Blog, Content, Authentication, BufferedPost], user_id: user.id
   end
 end
