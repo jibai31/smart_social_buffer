@@ -2,11 +2,7 @@
 class Category < ActiveRecord::Base
   
   def label
-    if name=="my_content"
-      'label-success'
-    else
-      'label-default'
-    end
+    "label-#{name}"
   end
 
   def to_s
