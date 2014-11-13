@@ -14,7 +14,6 @@
           = navbar_menu 'Contents', contents_path
           = navbar_menu 'Timeline', '#'
           /* = navbar_menu 'Schedule', '#' */
-          = navbar_menu 'Accounts', authentications_path
-          = navbar_menu 'Settings', edit_user_registration_path
+          = navbar_menu 'Settings', settings_path
         ul.nav.navbar-nav.navbar-right
           li= link_to 'Sign out', destroy_user_session_path, method: :delete

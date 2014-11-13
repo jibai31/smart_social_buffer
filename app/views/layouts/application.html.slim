@@ -5,8 +5,5 @@ html
     = render "layouts/navbar"
     .container
       = render 'layouts/flash_messages'
-      = yield
-    #footer
-      .container
-        br
-        p.text-muted &copy; SmartSocialBuffer 2014
+      = content_for(:nested_layout_content) ? yield(:nested_layout_content) : yield
+    = render 'layouts/footer'

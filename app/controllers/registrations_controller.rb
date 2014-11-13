@@ -1,5 +1,6 @@
 # encoding: UTF-8
 class RegistrationsController < Devise::RegistrationsController
+  layout "settings", only: [:edit]
 
   def edit
     @blog = Blog.new

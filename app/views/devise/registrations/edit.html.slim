@@ -1,18 +1,1 @@
-h2 Settings
-
-h3 Blogs
-ul.list-unstyled
-  - current_user.blogs.each do |blog|
-    li
-      = blog.url
-      | &nbsp;
-      = render 'categories/category', category: blog.category
-
-h3 Add a blog
-= simple_form_for(@blog) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :url, required: true
-    = f.input :category_id, collection: Category.all, label_method: :to_s, value_method: :id, default: 1
-  .form-actions
-    = f.button :submit, "Add a blog", class: 'btn btn-primary'
+- title 'Settings'

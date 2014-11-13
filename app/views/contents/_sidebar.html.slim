@@ -1,0 +1,10 @@
+strong Blogs
+ul.list-unstyled
+  - current_user.blogs.each do |blog|
+    li.text-ellipsis= link_to blog, '#', title: blog, class: "label #{blog.category.label}"
+p= link_to '+ Add a blog', new_blog_path
+
+strong Categories
+ul.list-unstyled
+  - Category.all.each do |category|
+    li= link_to category, '#', class: "label #{category.label}"

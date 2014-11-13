@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
     if name=="my_content"
       'label-success'
     else
-      'label-primary'
+      'label-default'
     end
   end
 

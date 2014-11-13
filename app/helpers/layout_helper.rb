@@ -11,9 +11,9 @@ module LayoutHelper
     end
   end
 
-  def navbar_menu(title, url)
-    content_tag(:li, class: ('active' if request.original_fullpath==url)) do
-      link_to title, url
+  def title(title)
+    content_for(:top) do
+      content_tag :h2, title
     end
   end
 end
