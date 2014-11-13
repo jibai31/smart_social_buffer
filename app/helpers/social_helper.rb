@@ -35,4 +35,8 @@ module SocialHelper
     provider.to_s.split('_').first
   end
 
+  def user_connected?(user_authentications, provider)
+    user_authentications.select{|authentication| authentication.provider == provider}.first
+  end
+
 end

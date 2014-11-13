@@ -1,8 +1,11 @@
 # encoding: UTF-8
 class AuthenticationsController < Devise::OmniauthCallbacksController
+  before_filter :authenticate_user!, only: [:index, :destroy]
+  load_and_authorize_resource
+  skip_authorize_resource except: [:index, :destroy]
 
   def index
-    @authentications = current_user.authentications
+    @authentications = current_user.authentications.to_a
   end
 
   def destroy

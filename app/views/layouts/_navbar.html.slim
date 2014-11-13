@@ -9,12 +9,12 @@
       = link_to root_path, class: 'navbar-brand' do
         = image_tag 'logo.png', alt: "Smart Social Buffer"
     .collapse.navbar-collapse
-      ul.nav.navbar-nav
-        = navbar_menu 'Contents', contents_path
-        = navbar_menu 'Queue', '#'
-        /* = navbar_menu 'Schedule', '#' */
-        = navbar_menu 'Accounts', authentications_path
-        = navbar_menu 'Settings', edit_user_registration_path
       - if user_signed_in?
+        ul.nav.navbar-nav
+          = navbar_menu 'Contents', contents_path
+          = navbar_menu 'Timeline', '#'
+          /* = navbar_menu 'Schedule', '#' */
+          = navbar_menu 'Accounts', authentications_path
+          = navbar_menu 'Settings', edit_user_registration_path
         ul.nav.navbar-nav.navbar-right
           li= link_to 'Sign out', destroy_user_session_path, method: :delete

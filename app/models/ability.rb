@@ -10,7 +10,7 @@ class Ability
     can :create, [Blog, Content, Message]
 
     # READ
-    can :read, [Blog, Content], user_id: user.id
+    can :read, [Blog, Content, Authentication], user_id: user.id
 
     # UPDATE
     can :update, [Blog, Content], user_id: user.id
