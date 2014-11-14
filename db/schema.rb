@@ -13,16 +13,18 @@
 
 ActiveRecord::Schema.define(version: 20141113170255) do
 
-  create_table "authentications", force: true do |t|
+  create_table "accounts", force: true do |t|
     t.integer "user_id"
     t.string  "provider"
     t.string  "uid"
     t.string  "token"
     t.string  "token_secret"
+    t.string  "username"
+    t.string  "email"
   end
 
-  add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid", using: :btree
-  add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
+  add_index "accounts", ["provider", "uid"], name: "index_accounts_on_provider_and_uid", using: :btree
+  add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
 
   create_table "blogs", force: true do |t|
     t.integer  "user_id"

@@ -6,7 +6,7 @@ module SessionMacros
     provider = options[:provider] || 'google_oauth2'
     name = options[:name]
 
-    create(:user_with_authentication, email: email, name: name, provider: provider)
+    create(:user_with_account, email: email, name: name, provider: provider)
   end
 
   # === ACT =============================================

@@ -4,17 +4,17 @@ FactoryGirl.define do
     name      "John Doe"
     password  "password"
 
-    factory :user_with_authentication do
+    factory :user_with_account do
       ignore do
         provider "twitter"
       end
       after(:create) do |user, evaluator|
-        FactoryGirl.create(:authentication, user: user, provider: evaluator.provider)
+        FactoryGirl.create(:account, user: user, provider: evaluator.provider)
       end
     end
   end
 
-  factory :authentication do
+  factory :account do
     provider "provider"
     uid "12345"
     user

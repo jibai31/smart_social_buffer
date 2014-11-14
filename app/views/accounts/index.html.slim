@@ -1,0 +1,9 @@
+- title 'Connected accounts'
+
+p You have successfully linked the following accounts:
+.social
+  .social-signin-buttons
+    = render 'accounts/account', provider: "facebook"
+    = render 'accounts/account', provider: "google_oauth2"
+    = render 'accounts/account', provider: "twitter"
+    = render 'accounts/account', provider: "linkedin"

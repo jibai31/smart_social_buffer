@@ -14,7 +14,7 @@ class Ability
     can [:create, :fill], BufferedPost
 
     # READ
-    can :read, [Blog, Content, Authentication, BufferedPost], user_id: user.id
+    can :read, [Blog, Content, Account, BufferedPost], user_id: user.id
     can :manage, Message, content: {user_id: user.id}
 
     # UPDATE
@@ -22,6 +22,6 @@ class Ability
     can [:update, :import], Blog, user_id: user.id
 
     # DESTROY
-    can :destroy, [Blog, Content, Authentication, BufferedPost], user_id: user.id
+    can :destroy, [Blog, Content, Account, BufferedPost], user_id: user.id
   end
 end

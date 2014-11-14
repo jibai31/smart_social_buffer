@@ -19,10 +19,10 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, controllers: {omniauth_callbacks: "authentications", registrations: "registrations"}
+  devise_for :users, controllers: {omniauth_callbacks: "accounts", registrations: "registrations"}
   devise_scope :user do
-    resources :authentications, only: [:index, :destroy]
-    get '/settings' => "authentications#index", as: :settings
+    resources :accounts, only: [:index, :destroy]
+    get '/settings' => "accounts#index", as: :settings
   end
 
   root 'statics#home'

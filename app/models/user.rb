@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   include HasContents
 
   # Associations
-  has_many :authentications, dependent: :destroy
+  has_many :accounts, dependent: :destroy
   has_many :blogs, dependent: :destroy
   has_many :buffered_posts, dependent: :destroy
 
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:google_oauth2, :facebook, :twitter, :linkedin]
 
   def password_required?
-    (authentications.empty? || !password.blank?) && super
+    (accounts.empty? || !password.blank?) && super
   end
 
   # OK to update a user without a password (otherwise validation fails)

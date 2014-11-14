@@ -2,7 +2,7 @@
   - provider_name = provider_friendly_name(provider)
   .social-img.pull-left class="#{provider_name}-md"
   .social-provider= provider_name.capitalize
-  - if auth = user_connected?(@authentications, provider)
+  - if auth = user_connected?(@accounts, provider)
     = link_to "Disconnect", auth, method: :delete, class: "btn btn-default"
   - else
     = link_to "Connect", user_omniauth_authorize_path(provider, display: "popup"), class: "btn btn-success"

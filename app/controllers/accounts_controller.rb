@@ -1,5 +1,5 @@
 # encoding: UTF-8
-class AuthenticationsController < Devise::OmniauthCallbacksController
+class AccountsController < Devise::OmniauthCallbacksController
   load_and_authorize_resource only: [:index, :destroy]
   layout "settings", only: [:index]
 
@@ -7,10 +7,10 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
   end
 
   def destroy
-    if @authentication
-      @authentication.destroy!
+    if @account
+      @account.destroy!
     end
-    redirect_to authentications_path
+    redirect_to accounts_path
   end
 
   # Omniauth callbacks
@@ -34,12 +34,12 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
   private
 
   def try_sign_in_user
-    authentication = Authentication.find_by_provider_and_uid(auth.provider, auth.uid)
+    account = Account.find_by_provider_and_uid(auth.provider, auth.uid)
     user = current_user || User.find_by_email(auth.info.email)
 
-    if authentication
+    if account
       logger.info "The user has already authenticated with this provider"
-      sign_in_and_redirect authentication.user
+      sign_in_and_redirect account.user
 
     elsif user
       logger.info "The user is currently signed in, but with another provider"
