@@ -27,7 +27,7 @@ module SessionMacros
   # === ASSERT ==========================================
 
   def user_should_be_signed_in
-    expect(page).to have_content('Log out')
+    expect(page).to have_content('Sign out')
   end
 
   def user_should_be_signed_in_as name
