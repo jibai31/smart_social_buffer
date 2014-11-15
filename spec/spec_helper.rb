@@ -31,6 +31,9 @@ OmniAuth.config.test_mode = true
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
+  # Show depreciation warnings as errors
+  config.raise_errors_for_deprecations!
+
   # Include macros
   config.include SessionMacros
 
