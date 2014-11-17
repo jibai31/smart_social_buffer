@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 feature 'Visitor signs in' do
 
   scenario 'with a provider already registered' do

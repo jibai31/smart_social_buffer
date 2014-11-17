@@ -5,14 +5,14 @@ class MessageBufferizer
     @user = user
     @buffered_posts = []
     @potential_contents = user.contents.to_a
-    @week = BufferWeek.new(Date.today)
+    @week = BalancedWeek.new(Date.today)
   end
 
   attr_reader :user, :buffered_posts, :potential_contents, :week
 
   # For tests only
   def buffer
-    week.buffer
+    week.piles
   end
 
   def preview
@@ -27,14 +27,12 @@ class MessageBufferizer
     #  - homogeneous distribution on a week
     #  - homegeneous distribution in a day
     #
-    # 5 messages
-    #
-    # Algo : 
-    #  1) Select top priority content
-    #  2) Add to week (function in homo manner)
+    while potential_contents.any?
+      next_content = next_priority_content
+      week.schedule(next_content)
+    end
 
-    next_content = next_priority_content
-    week.schedule(next_content)
+    bufferize_posts
   end
 
   def perform
@@ -43,6 +41,16 @@ class MessageBufferizer
   end
 
   # For tests only
+
+  def bufferize_posts
+    week.piles.each do |contents_for_the_day|
+      contents_for_the_day.each do |content|
+        message = next_priority_message(content)
+        time_of_delivery = Time.now
+        buffered_posts << BufferedPost.new(message: message, user: user, run_at: time_of_delivery)
+      end
+    end
+  end
 
   def print
     buffer.each_with_index do |buffered_contents, i|
@@ -54,6 +62,10 @@ class MessageBufferizer
 
   # Smell : probably needs an iterator object
 
+  def next_priority_message(content)
+    content.messages.min_by{|message| message.post_counter}
+  end
+
   def next_priority_content
     content = top_priority_content(potential_contents) 
     potential_contents.delete(content)
@@ -64,51 +76,20 @@ class MessageBufferizer
   end
 end
 
-class BufferWeek
+class BalancedWeek < LoadBalancingArray
   def initialize(first_day)
+    super(5)
     # Init days of the week: days[3] = Thu, May 23
     @days = [first_day]
     (1..4).each {|nb| @days << first_day + nb.days}
-
-    # Init days buffers: buffer[2] = [content_1, content2]
-    @buffer = []
-    (0..4).each {@buffer << []}
   end
 
-  attr_reader :days, :buffer
+  attr_reader :days
 
   def schedule(content)
     @MAX_POST_CONTENT_IN_WEEK = 3
     nb_posts = [@MAX_POST_CONTENT_IN_WEEK, content.messages.count].min
-    slots = find_next_slots(nb_posts)
-    slots.each do |slot|
-      if buffer[slot]
-        buffer[slot] << content
-      else
-        buffer[slot] = [content]
-      end
-    end
+    spread(nb_posts.times.collect{content})
   end
 
-  private
-
-  # Actually no need to define more than 3, as it should never happen
-  def find_next_slots(nb)
-    case nb
-    when 0
-      return []
-    when 1
-      return [2]
-    when 2
-      return [1, 3]
-    when 3
-      return [0, 2, 4]
-    when 4
-      return [0, 1, 3, 4]
-    when 5
-      return 0..4
-    else
-      return (0..4).merge(find_next_slots(nb-5))
-    end
-  end
 end

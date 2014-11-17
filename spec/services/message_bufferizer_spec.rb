@@ -1,3 +1,6 @@
+require 'rails_helper'
+require 'load_balancing_array'
+
 describe MessageBufferizer do
 
   let(:user)    { create(:user_with_account) }
@@ -19,28 +22,32 @@ describe MessageBufferizer do
     service.preview
     service.print
 
-    expect(service.buffered_posts.count).to eq(30)
+    expect(service.buffered_posts.count).to eq(18)
+  end
+
+  it "makes sure a content is never posted more than 3 times" do
+    expect(false).to be true
   end
 
 end
 
-describe BufferWeek do
-  let(:week) {BufferWeek.new(Date.today)}
+describe BalancedWeek do
+  let(:week) {BalancedWeek.new(Date.today)}
   it "creates a days array" do
     expect(week.days.size).to eq(5)
     expect(week.days.first).to eq(Date.today)
   end
 
-  it "creates a buffer array" do
-    expect(week.buffer.size).to eq(5)
-    expect(week.buffer.first).to eq([])
+  it "creates 5 empty piles" do
+    expect(week.piles.size).to eq(5)
+    expect(week.piles.first).to eq([])
   end
 
   describe "schedule" do
     it "fills the buffer" do
       content = create(:content_with_messages)
       week.schedule(content)
-      expect(week.buffer.map{|buffered_contents| buffered_contents.size}).to eq [1, 0, 1, 0, 1]
+      expect(week.pile_sizes).to eq [1, 0, 1, 0, 1]
     end
 
     it "adds to existing buffered contents" do
@@ -49,7 +56,7 @@ describe BufferWeek do
       week.schedule(content)
       week.schedule(content2)
 
-      expect(week.buffer.map{|buffered_contents| buffered_contents.size}).to eq [2, 1, 1, 1, 1]
+      expect(week.pile_sizes).to eq [2, 1, 1, 1, 1]
     end
   end
 end
