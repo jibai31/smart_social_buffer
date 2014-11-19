@@ -1,6 +1,10 @@
 # encoding: UTF-8
 class Category < ActiveRecord::Base
   
+  def tag
+    "tag-#{name}"
+  end
+
   def label
     "label-#{name}"
   end

@@ -7,6 +7,8 @@ class Blog < ActiveRecord::Base
   # Associations
   belongs_to :user
   belongs_to :category
+  scope :own_content, -> { where(category_id: 1) }
+  scope :others, -> { where("category_id > 1") }
 
   # Validations
   validates_presence_of :url

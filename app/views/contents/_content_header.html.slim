@@ -1,7 +1,9 @@
-strong
-  = content.title
-  | &nbsp;
-  = render 'categories/category', category: content.category
-br
-= link_to content.url, content.url, target: "_blank"
-br
+.content-header
+  strong
+    = content.title
+    | &nbsp;
+    = render 'categories/category', category: content.category
+    = link_to content, data: {confirm: 'Are you sure?'}, method: :delete, class: 'pull-right content-actions-buttons' do
+      b.glyphicon.glyphicon-trash
+  br
+  = link_to content.url, content.url, target: "_blank"
