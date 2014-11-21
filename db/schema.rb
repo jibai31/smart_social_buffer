@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20141121184734) do
 
   create_table "buffered_weeks", force: true do |t|
     t.integer  "planning_id"
-    t.integer  "number"
+    t.date     "first_day"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

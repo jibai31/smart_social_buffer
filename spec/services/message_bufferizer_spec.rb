@@ -4,7 +4,7 @@ require 'load_balancing_array'
 describe MessageBufferizer do
 
   let(:user)    { create(:user_with_account) }
-  let(:service) { MessageBufferizer.new(user) }
+  let(:service) { MessageBufferizer.new(user.accounts.first) }
 
   before(:each) do
     user.contents << create(:content_with_messages)
