@@ -1,14 +1,7 @@
 Rails.application.routes.draw do
 
-  resources :buffered_posts, only: [:index, :destroy] do
-    collection do
-      get 'fill'
-    end
-  end
-  get '/timeline' => "buffered_posts#index", as: :timeline
-
+  # Content
   get '/contents/c/:category_id' => 'contents#index', as: :contents_with_category
-
   resources :contents do
     resources :messages, except: [:index]
   end
@@ -19,12 +12,17 @@ Rails.application.routes.draw do
     end
   end
 
+  # Users, accounts and planning
   devise_for :users, controllers: {omniauth_callbacks: "accounts", registrations: "registrations"}
   devise_scope :user do
-    resources :accounts, only: [:index, :destroy]
+    resources :accounts, only: [:index, :destroy] do
+      resources :plannings, only: [:show]
+    end
     get '/settings' => "accounts#index", as: :settings
   end
+  resources :plannings, only: [:index]
 
+  # Home page
   root 'statics#home'
 
 end

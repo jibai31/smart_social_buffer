@@ -6,6 +6,9 @@ module Authenticatable
     accounts.build(
       provider: auth['provider'],
       uid: auth['uid'],
+      name: auth['info']['name'],
+      email: auth['info']['email'],
+      avatar: auth['info']['image'],
       token: auth['credentials']['token'],
       token_secret: auth['credentials']['secret']
     )

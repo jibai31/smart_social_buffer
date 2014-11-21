@@ -1,18 +1,10 @@
 # encoding: UTF-8
 class BufferedPostsController < ApplicationController
-  load_and_authorize_resource through: :current_user
-
-  def index
-  end
+  load_and_authorize_resource
 
   def destroy
     @buffered_post.destroy
-    redirect_to timeline_path
-  end
-
-  def fill
-    MessageBufferizer.new(current_user).perform
-    redirect_to timeline_path
+    redirect_to plannings_path
   end
 
   private

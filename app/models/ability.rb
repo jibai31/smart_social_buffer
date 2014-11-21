@@ -16,6 +16,7 @@ class Ability
     # READ
     can :read, [Blog, Content, Account, BufferedPost], user_id: user.id
     can :manage, Message, content: {user_id: user.id}
+    can :read, Planning, account: {user_id: user.id}
 
     # UPDATE
     can :update, Content, user_id: user.id

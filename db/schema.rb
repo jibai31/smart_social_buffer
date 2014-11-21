@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141113170255) do
+ActiveRecord::Schema.define(version: 20141121184734) do
 
   create_table "accounts", force: true do |t|
     t.integer "user_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20141113170255) do
     t.string  "token_secret"
     t.string  "username"
     t.string  "email"
+    t.string  "avatar"
   end
 
   add_index "accounts", ["provider", "uid"], name: "index_accounts_on_provider_and_uid", using: :btree
@@ -37,17 +38,34 @@ ActiveRecord::Schema.define(version: 20141113170255) do
 
   add_index "blogs", ["user_id"], name: "index_blogs_on_user_id", using: :btree
 
-  create_table "buffered_posts", force: true do |t|
-    t.integer  "message_id"
-    t.integer  "user_id"
-    t.datetime "run_at"
-    t.string   "state"
+  create_table "buffered_days", force: true do |t|
+    t.integer  "buffered_week_id"
+    t.date     "day"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "buffered_days", ["buffered_week_id"], name: "index_buffered_days_on_buffered_week_id", using: :btree
+
+  create_table "buffered_posts", force: true do |t|
+    t.integer  "buffered_day_id"
+    t.integer  "message_id"
+    t.datetime "run_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "buffered_posts", ["buffered_day_id"], name: "index_buffered_posts_on_buffered_day_id", using: :btree
   add_index "buffered_posts", ["message_id"], name: "index_buffered_posts_on_message_id", using: :btree
-  add_index "buffered_posts", ["user_id"], name: "index_buffered_posts_on_user_id", using: :btree
+
+  create_table "buffered_weeks", force: true do |t|
+    t.integer  "planning_id"
+    t.integer  "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "buffered_weeks", ["planning_id"], name: "index_buffered_weeks_on_planning_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -84,6 +102,14 @@ ActiveRecord::Schema.define(version: 20141113170255) do
   end
 
   add_index "messages", ["content_id"], name: "index_messages_on_content_id", using: :btree
+
+  create_table "plannings", force: true do |t|
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "plannings", ["account_id"], name: "index_plannings_on_account_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
