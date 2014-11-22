@@ -1,3 +1,11 @@
+# Macros kept as a reference (not used anymore)
+#
+# To use such a macro, the spec needs to do the following:
+#
+# require 'service_under_test'
+# require 'support/load_balancing_array_macros'
+# RSpec.configure{|c| c.include LoadBalancingArrayMacros}
+#
 module LoadBalancingArrayMacros
 
   RSpec::Matchers.define :be_of_size do |expected_sizes|

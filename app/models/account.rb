@@ -6,4 +6,5 @@ class Account < ActiveRecord::Base
   validates_presence_of :uid, :provider
   validates_uniqueness_of :uid, scope: :provider
 
+  delegate :contents, to: :user
 end

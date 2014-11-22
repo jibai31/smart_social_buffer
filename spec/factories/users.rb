@@ -18,17 +18,15 @@ FactoryGirl.define do
     provider "provider"
     uid "12345"
     user
+    after(:create) do |account|
+      create(:planning, account: account)
+    end
   end
 
   factory :content_with_messages, class: :content do
     url "some_url"
 
-    # transient do
-    #   messages_count 5
-    # end
-
     after(:create) do |content, evaluator|
-      # create_list(:message, evaluator.messages_count, content: content)
       create_list(:message, 5, content: content)
     end
   end
@@ -37,5 +35,9 @@ FactoryGirl.define do
     text "Some text"
     social_network "twitter"
     association :content
+  end
+
+  factory :planning do
+    account
   end
 end
