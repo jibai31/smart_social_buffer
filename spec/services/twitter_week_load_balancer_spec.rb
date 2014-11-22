@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe WeekLoadBalancer do
+describe TwitterWeekLoadBalancer do
 
   let(:user)    { create(:user_with_account) }
   let(:account) { user.accounts.first }
   let(:week)    { BufferedWeekFactory.new(account.planning).build }
-  let(:service) { WeekLoadBalancer.new(week, account) }
+  let(:service) { TwitterWeekLoadBalancer.new(week, account) }
 
   it "loads nothing for no content" do
     expect(service.perform).to eq [0, 0, 0, 0, 0, 0, 0]

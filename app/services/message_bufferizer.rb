@@ -7,17 +7,13 @@ class MessageBufferizer
     @week = week
 
     # Services
-    @week_load_balancer = args[:week_load_balancer] || default_week_load_balancer
-    @day_load_balancer = args[:day_load_balancer] || default_day_load_balancer
-    @content_selector = args[:content_selector] || default_content_selector
-    @message_selector = args[:message_selector] || default_message_selector
+    @week_load_balancer = args[:week_load_balancer] || WeekLoadBalancerFactory.new(account).build(week)
+    @day_load_balancer = args[:day_load_balancer] || DayLoadBalancerFactory.new(account).build(day)
+    @content_selector = args[:content_selector] || ContentSelectorFactory.new(account).build
+    @message_selector = args[:message_selector] || MessageSelectorFactory.new(account).build
 
     # Init
     @nb_contents_by_day = week_load_balancer.perform(week, account)
-    # @user = account.user
-    # @buffered_posts = []
-    # @potential_contents = @user.contents.to_a
-    # @week = BalancedWeek.new(Date.today)
   end
 
   # attr_reader :user, :buffered_posts, :potential_contents, :week
@@ -36,12 +32,6 @@ class MessageBufferizer
     #  - homogeneous distribution on a week
     #  - homegeneous distribution in a day
     #
-    # while potential_contents.any?
-    #   next_content = next_priority_content
-    #   week.schedule(next_content)
-    # end
-
-    # bufferize_posts
 
     week.buffered_days.each_with_index do |day, day_position|
       day_capacity = nb_contents_by_day[day_position]
@@ -87,25 +77,6 @@ class MessageBufferizer
 
   # NEW PRIVATE METHODS (DELETE THE OTHER ONES LATER)
 
-  def provider
-    @provider ||= SocialNetwork.new(account.provider).name
-  end
-
-  def default_week_load_balancer
-    "#{provider}WeekLoadBalancer".constantize.new
-  end
-
-  def default_day_load_balancer
-    "#{provider}DayLoadBalancer".constantize.new
-  end
-
-  def default_content_selector
-    "#{provider}ContentSelector".constantize.new
-  end
-
-  def default_message_selector
-    "#{provider}MessageSelector".constantize.new
-  end
 
   # OLD PRIVATE METHODS ! DELETE WHEN DONE !
 

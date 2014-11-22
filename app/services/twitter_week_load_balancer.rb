@@ -1,4 +1,4 @@
-class WeekLoadBalancer
+class TwitterWeekLoadBalancer
 
   def initialize(week, account)
     # Data
