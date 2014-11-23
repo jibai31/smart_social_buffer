@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121184734) do
+ActiveRecord::Schema.define(version: 20141123130913) do
 
   create_table "accounts", force: true do |t|
     t.integer "user_id"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20141121184734) do
     t.datetime "updated_at"
     t.integer  "category_id"
     t.integer  "blog_id"
+    t.integer  "posts_count",    default: 0,     null: false
   end
 
   add_index "contents", ["blog_id"], name: "index_contents_on_blog_id", using: :btree
@@ -94,7 +95,7 @@ ActiveRecord::Schema.define(version: 20141121184734) do
     t.integer  "content_id"
     t.text     "text",                           null: false
     t.string   "social_network",                 null: false
-    t.integer  "post_counter",   default: 0,     null: false
+    t.integer  "posts_count",    default: 0,     null: false
     t.datetime "last_posted_at"
     t.boolean  "post_only_once", default: false, null: false
     t.datetime "created_at"

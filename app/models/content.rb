@@ -20,8 +20,4 @@ class Content < ActiveRecord::Base
       post_only_once: post_only_once
     )
   end
-
-  def post_counter
-    messages.sum(:post_counter)
-  end
 end

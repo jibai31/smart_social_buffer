@@ -9,7 +9,7 @@ class MessageBufferizer
     # Services
     @week_load_balancer = args[:week_load_balancer] || WeekLoadBalancerFactory.new(account).build(week)
     @day_load_balancer = args[:day_load_balancer] || DayLoadBalancerFactory.new(account).build(day)
-    @content_selector = args[:content_selector] || ContentSelectorFactory.new(account).build
+    @content_selector = args[:content_selector] || ContentSelectorFactory.new(account).build(@week_load_balancer)
     @message_selector = args[:message_selector] || MessageSelectorFactory.new(account).build
 
     # Init
@@ -22,20 +22,22 @@ class MessageBufferizer
 
   def preview
     # SIMPLIFICATIONS
-    #  - only posts between 9AM and 5PM
+    #  - only posts between 8AM and 8PM
     #
-    # TWITTER ONLY
-    #  - target_post_frequency = 1 message per hour
-    #  - a message can only be posted once in a week
-    #  - a content can only be posted once in a day
-    #  - a content can only be posted 3 times in a week
-    #  - homogeneous distribution on a week
-    #  - homegeneous distribution in a day
+    # TWITTER ONLY : target_post_frequency = 1 message per hour 
+    #
+    #  - a message can only be posted once in a week     [x] Week Load Balancer
+    #  - a content can only be posted once in a day      [ ]
+    #  - a content can only be posted 3 times in a week  [x] Week Load Balancer
+    #  - less than 1 msg/h = 12 msg/day = 84 msg/week    [x] Week Load Balancer
+    #  - homogeneous distribution on a week              [x] Week Load Balancer
+    #  - homegeneous distribution in a day               [ ]
     #
 
     week.buffered_days.each_with_index do |day, day_position|
       day_capacity = nb_contents_by_day[day_position]
-      best_contents = content_selector.get_best_contents(day, day_capacity)
+      top_contents = content_selector.get_top_contents(day, day_capacity)
+
       day_posting_times = day_load_balancer.perform(day, best_contents)
 
       best_contents.each_with_index do |content, content_position|
@@ -83,7 +85,7 @@ class MessageBufferizer
 
   # Smell : probably needs an iterator object
   def next_priority_message(content)
-    content.messages.min_by{|message| message.post_counter}
+    content.messages.min_by{|message| message.posts_count}
   end
 
   def next_priority_content
@@ -92,7 +94,7 @@ class MessageBufferizer
   end
 
   def top_priority_content(contents)
-    contents.min_by{|content| content.post_counter}
+    contents.min_by{|content| content.posts_count}
   end
 end
 

@@ -4,9 +4,6 @@ class MessagesController < ApplicationController
   load_and_authorize_resource :message, through: :content
   layout "contents"
 
-  def show
-  end
-
   def new
     @message = @content.messages.build(post_only_once: @content.post_only_once)
   end
@@ -38,6 +35,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:content_id, :text, :social_network, :post_counter, :last_posted_at, :post_only_once)
+    params.require(:message).permit(:content_id, :text, :social_network, :posts_count, :last_posted_at, :post_only_once)
   end
 end

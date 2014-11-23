@@ -23,6 +23,22 @@ FactoryGirl.define do
     end
   end
 
+  factory :content_with_one_message, class: :content do
+    url "some_url"
+
+    after(:create) do |content, evaluator|
+      create_list(:message, 1, content: content)
+    end
+  end
+
+  factory :content_with_two_messages, class: :content do
+    url "some_url"
+
+    after(:create) do |content, evaluator|
+      create_list(:message, 2, content: content)
+    end
+  end
+
   factory :content_with_messages, class: :content do
     url "some_url"
 

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # Content
   get '/contents/c/:category_id' => 'contents#index', as: :contents_with_category
   resources :contents do
-    resources :messages, except: [:index]
+    resources :messages, except: [:index, :show]
   end
 
   resources :blogs, except: [:index] do
