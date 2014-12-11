@@ -12,6 +12,8 @@ class TwitterContentSelector
 
   attr_reader :account
 
+  # NB: day argument is not used, but could be later
+  #  to select best contents for a given day (eg, quotes on Wednesdays).
   def get_top_contents(day, nb_messages)
     raise_argument_error(nb_messages) if nb_messages > nb_available_messages
 

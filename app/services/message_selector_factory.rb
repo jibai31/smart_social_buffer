@@ -2,7 +2,7 @@
 class MessageSelectorFactory < SocialServiceFactory
 
   def build
-    "#{provider}MessageSelector".constantize.new
+    "#{provider}MessageSelector".constantize.new(account)
   end
 
 end

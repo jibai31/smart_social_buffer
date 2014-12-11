@@ -1,0 +1,46 @@
+require 'rails_helper'
+require 'support/buffer_macros'
+RSpec.configure{|c| c.include BufferMacros}
+
+describe WeekPlanner do
+
+  let(:user)    { create(:user_with_account) }
+  let(:account) { user.accounts.first }
+  let(:week)    { BufferedWeekFactory.new(account.planning).build }
+  let(:service) { WeekPlanner.new(account, week) }
+
+  before(:each) do
+    user.contents << create(:content_with_messages)
+    user.contents << create(:content_with_messages)
+    user.contents << create(:content_with_messages)
+    user.contents << create(:content_with_messages)
+    user.contents << create(:content_with_messages)
+    user.contents << create(:content_with_messages)
+  end
+
+  describe "preview" do
+    it "builds BufferedPosts" do
+      expect(user.contents.count).to eq 6
+      expect(user.contents.first.messages.count).to eq 5
+
+      expect(posts_count week).to eq 0
+
+      service.preview
+      service.print
+
+      expect(posts_count week).to eq 18
+    end
+
+    it "doesn't create anything" do
+      service.preview
+      expect(week.posts_count).to eq 0
+    end
+  end
+
+  describe "perform" do
+    it "creates BufferedPosts" do
+      service.perform
+      expect(week.posts_count).to eq 18 
+    end
+  end
+end

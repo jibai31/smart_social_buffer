@@ -20,4 +20,8 @@ class Content < ActiveRecord::Base
       post_only_once: post_only_once
     )
   end
+
+  def messages_on(social_network)
+    messages.where(social_network: social_network)
+  end
 end
