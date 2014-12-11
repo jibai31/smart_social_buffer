@@ -10,12 +10,7 @@ describe WeekPlanner do
   let(:service) { WeekPlanner.new(account, week) }
 
   before(:each) do
-    user.contents << create(:content_with_messages)
-    user.contents << create(:content_with_messages)
-    user.contents << create(:content_with_messages)
-    user.contents << create(:content_with_messages)
-    user.contents << create(:content_with_messages)
-    user.contents << create(:content_with_messages)
+    user.contents << create_list(:content_with_messages, 6, number_of_messages: 5)
   end
 
   describe "preview" do
@@ -26,7 +21,7 @@ describe WeekPlanner do
       expect(posts_count week).to eq 0
 
       service.preview
-      service.print
+      # service.print
 
       expect(posts_count week).to eq 18
     end

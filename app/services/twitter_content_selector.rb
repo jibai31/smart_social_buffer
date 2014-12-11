@@ -42,7 +42,7 @@ class TwitterContentSelector
     # Fill the week with yesterday's contents if nothing else available
     if top_contents.count < nb_contents
       sorted_contents.each do |content_id, posts_count|
-        top_contents << pick(content_id) if !posted_too_many_times?(content_id, top_contents)
+        top_contents << pick(content_id) if can_be_picked_at_second_turn?(content_id, top_contents)
         break if top_contents.count == nb_contents
       end
     end
@@ -73,6 +73,10 @@ class TwitterContentSelector
     !picked_yesterday?(content_id) && !posted_too_many_times?(content_id, top_contents)
   end
 
+  def can_be_picked_at_second_turn?(content_id, top_contents)
+    !posted_too_many_times?(content_id, top_contents) && !already_picked?(content_id, top_contents)
+  end
+
   def picked_yesterday?(content_id)
     @last_buffered_contents.include?(content_id)
   end
@@ -82,6 +86,10 @@ class TwitterContentSelector
     nb_times_being_posted = top_contents.grep(content_id).size
     nb_times_postable = @week_load_balancer.nb_messages_postable_in_a_week(content_id)
     nb_times_posted + nb_times_being_posted >= nb_times_postable
+  end
+
+  def already_picked?(content_id, top_contents)
+    top_contents.grep(content_id).size > 0
   end
 
   def raise_argument_error(nb_messages)

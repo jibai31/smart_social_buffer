@@ -11,27 +11,27 @@ describe TwitterDayPlanner do
   let(:service) { TwitterDayPlanner.new(account, selector) }
 
   it "fills the day with posts" do
-    contents = create_list(:content_with_one_message, 2)
+    user.contents << create_list(:content_with_messages, 2, number_of_messages: 1)
     expect(day.buffered_posts.size).to eq 0
 
-    service.perform(day, contents)
+    service.perform(day, user.contents)
 
     expect(day.buffered_posts.size).to eq 2
   end
 
   it "spreads posts across the day" do
-    contents = create_list(:content_with_one_message, 2)
+    user.contents << create_list(:content_with_messages, 2, number_of_messages: 1)
     
-    posts = service.perform(day, contents)
+    posts = service.perform(day, user.contents)
     
     expect(posts.first).to run_around 12
     expect(posts.last).to run_around 16
   end
 
   it "only selects messages for Twitter" do
-    contents = create_list(:content_with_one_message, 2)
+    user.contents << create_list(:content_with_messages, 2, number_of_messages: 1)
 
-    posts = service.perform(day, contents)
+    posts = service.perform(day, user.contents)
     posts.each do |p|
       social_network = p.message.social_network
       expect(social_network).to eq "twitter"
@@ -39,6 +39,10 @@ describe TwitterDayPlanner do
   end
 
   it "temporary marks messages as posted when selecting them" do
-    expect(true).to be_false
+    user.contents << create_list(:content_with_posted_messages, 2, number_of_messages: 5)
+
+    posts = service.perform(day, user.contents)
+    messages = posts.map{|p| p.message}
+    expect(messages.size).to eq messages.uniq.size
   end
 end

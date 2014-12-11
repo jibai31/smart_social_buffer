@@ -14,7 +14,7 @@ describe TwitterContentSelector do
 
   context "for many contents" do
     before(:each) do
-      user.contents << create_list(:content_with_one_message, 12)
+      user.contents << create_list(:content_with_messages, 12, number_of_messages: 1)
     end
 
     it "returns the requested number of contents" do
@@ -52,18 +52,14 @@ describe TwitterContentSelector do
     end
   end
 
-  describe "cannot post more than 3 times" do
-    before(:each) do
+  describe "rules" do
+    it "cannot post a content more than 3 times" do
       @c1 = create(:content_with_messages, posts_count: 0)
       @c2 = create(:content_with_messages, posts_count: 1)
       @c3 = create(:content_with_messages, posts_count: 2)
-      user.contents << @c1
-      user.contents << @c2
-      user.contents << @c3
+      user.contents << [@c1, @c2, @c3]
       expect(@balancer.perform).to eq [2, 1, 2, 1, 1, 1, 1]
-    end
 
-    it "works properly" do
       # Day 1
       contents = @service.get_top_contents(day, 2)
       expect(contents).to eq [@c1, @c2]  # 1-2-2
@@ -86,24 +82,38 @@ describe TwitterContentSelector do
       contents = @service.get_top_contents(day, 1)
       expect(contents).to eq [@c3]       # 3-4-5
     end
-  end
 
-  describe "cannot post more than there are messages" do
-    before(:each) do
-      @c1 = create(:content_with_two_messages, posts_count: 0)
-      @c2 = create(:content_with_two_messages, posts_count: 1)
-      @c3 = create(:content_with_two_messages, posts_count: 2)
-      @c4 = create(:content_with_two_messages, posts_count: 4)
-      @c5 = create(:content_with_two_messages, posts_count: 5)
-      user.contents << @c1
-      user.contents << @c2
-      user.contents << @c3
-      user.contents << @c4
-      user.contents << @c5
-      expect(@balancer.perform).to eq [2, 1, 2, 1, 2, 1, 1]
+    it "cannot post a content twice in a day" do
+      @c1 = create(:content_with_messages, posts_count: 0, number_of_messages: 3)
+      @c2 = create(:content_with_messages, posts_count: 1, number_of_messages: 3)
+      @c3 = create(:content_with_messages, posts_count: 2, number_of_messages: 3)
+      @c4 = create(:content_with_messages, posts_count: 3, number_of_messages: 3)
+      @c5 = create(:content_with_messages, posts_count: 25, number_of_messages: 2)
+      user.contents << [@c1, @c2, @c3, @c4, @c5]
+      expect(@balancer.perform).to eq [2, 2, 2, 2, 2, 2, 2]
+
+      # Day 1 to 6
+      @service.get_top_contents(day, 2)
+      @service.get_top_contents(day, 2)
+      @service.get_top_contents(day, 2)
+      @service.get_top_contents(day, 2)
+      @service.get_top_contents(day, 2)
+      @service.get_top_contents(day, 2)
+
+      # Day 7 - only c5 left to post twice, so post only once instead
+      contents = @service.get_top_contents(day, 2)
+      expect(contents).to eq [@c5]
     end
 
-    it "works properly" do
+    it "cannot post more than there are messages" do
+      @c1 = create(:content_with_messages, posts_count: 0, number_of_messages: 2)
+      @c2 = create(:content_with_messages, posts_count: 1, number_of_messages: 2)
+      @c3 = create(:content_with_messages, posts_count: 2, number_of_messages: 2)
+      @c4 = create(:content_with_messages, posts_count: 4, number_of_messages: 2)
+      @c5 = create(:content_with_messages, posts_count: 5, number_of_messages: 2)
+      user.contents << [@c1, @c2, @c3, @c4, @c5]
+      expect(@balancer.perform).to eq [2, 1, 2, 1, 2, 1, 1]
+
       # Day 1
       contents = @service.get_top_contents(day, 2)
       expect(contents).to eq [@c1, @c2]  # 1-2-2-4-5

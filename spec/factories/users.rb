@@ -23,27 +23,25 @@ FactoryGirl.define do
     end
   end
 
-  factory :content_with_one_message, class: :content do
+  factory :content do
     url "some_url"
 
-    after(:create) do |content, evaluator|
-      create_list(:message, 1, content: content)
+    factory :content_with_messages do
+      ignore do
+        number_of_messages 5
+      end
+      after(:create) do |content, evaluator|
+        create_list(:message, evaluator.number_of_messages, content: content)
+      end
     end
-  end
 
-  factory :content_with_two_messages, class: :content do
-    url "some_url"
-
-    after(:create) do |content, evaluator|
-      create_list(:message, 2, content: content)
-    end
-  end
-
-  factory :content_with_messages, class: :content do
-    url "some_url"
-
-    after(:create) do |content, evaluator|
-      create_list(:message, 5, content: content)
+    factory :content_with_posted_messages do
+      ignore do
+        number_of_messages 5
+      end
+      after(:create) do |content, evaluator|
+        create_list(:posted_message, evaluator.number_of_messages, content: content)
+      end
     end
   end
 
@@ -51,6 +49,10 @@ FactoryGirl.define do
     text "Some text"
     social_network "twitter"
     association :content
+
+    factory :posted_message do
+      sequence(:posts_count)
+    end
   end
 
   factory :planning do
