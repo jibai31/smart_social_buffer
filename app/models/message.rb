@@ -8,4 +8,10 @@ class Message < ActiveRecord::Base
   def self.less_posted
     order(:posts_count).first
   end
+
+  # Instance methods
+
+  def title
+    content.title
+  end
 end

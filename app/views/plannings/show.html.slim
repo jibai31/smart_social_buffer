@@ -1,4 +1,5 @@
 = render 'plannings/header'
+
 p.text-center
   | In the planning we don't actually show the messages to be posted.
   br
@@ -7,4 +8,5 @@ p.text-center
   | Then on hover the message is actually displayed.
   br
   | It's ok because the user already trusts the messages that got written.
-= render @planning
+
+= render @planning.buffered_weeks

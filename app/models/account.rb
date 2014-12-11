@@ -7,4 +7,8 @@ class Account < ActiveRecord::Base
   validates_uniqueness_of :uid, scope: :provider
 
   delegate :contents, to: :user
+
+  def self.implemented
+    where(provider: ['twitter'])
+  end
 end

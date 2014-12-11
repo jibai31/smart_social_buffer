@@ -1,5 +1,6 @@
 - main_title 'Planning'
 
-ul.list-unstyled
-  - @accounts.each do |account|
-    li= link_to account.provider, account_planning_path(account, account.planning)
+- if @accounts.count > 1
+  ul.list-unstyled
+    - @accounts.each do |account|
+      li= link_to account.provider, account_planning_path(account, account.planning)

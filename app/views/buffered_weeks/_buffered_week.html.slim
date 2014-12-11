@@ -1,0 +1,40 @@
+- nb_posts = buffered_week.buffered_days.inject(0){|sum, day| sum + day.buffered_posts.size}
+
+.week id="week#{buffered_week.id}"
+  .actions
+    - if buffered_week.posts_count == nb_posts
+      - preview_path = account_buffered_week_preview_path(@account, buffered_week)
+      = link_to "Preview", preview_path, class: 'btn btn-primary', remote: true
+      | &nbsp;
+    - plan_path = account_buffered_week_plan_path(@account, buffered_week)
+    = link_to "Plan", preview_path, class: 'btn btn-danger', remote: true
+    br
+    br
+
+  .description
+    strong Week with #{nb_posts} posts
+  .table-responsive
+    table.table
+      thead
+        tr
+          th M 
+          th T 
+          th W 
+          th T 
+          th F 
+          th S 
+          th S 
+      tbody
+        tr
+          - buffered_week.buffered_days.each do |day|
+            td
+              - if day.buffered_posts.size > 0
+                - day.buffered_posts.each do |buffered_post|
+                  strong= buffered_post.run_at.to_s(:time)
+                  br
+                  | #{buffered_post.message.title}
+                  hr
+              - else
+                | Message to be posted on FB
+                hr
+                | Message to be posted on TT

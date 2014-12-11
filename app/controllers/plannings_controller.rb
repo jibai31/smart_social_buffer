@@ -9,7 +9,8 @@ class PlanningsController < ApplicationController
   load_and_authorize_resource only: [:index]
 
   def index
-    @planning = @accounts.first.planning
+    @account = @accounts.first
+    @planning = @account.planning
     initialize_planning
     render :show
   end
@@ -22,7 +23,7 @@ class PlanningsController < ApplicationController
   private
 
   def load_accounts
-    @accounts = current_user.accounts
+    @accounts = current_user.accounts.implemented
     initialize_plannings
   end
 
@@ -33,9 +34,14 @@ class PlanningsController < ApplicationController
   end
 
   def initialize_planning
-    buffered_weeks = @planning.buffered_weeks.to_a
-    while buffered_weeks.size < 4
-      buffered_weeks << @planning.buffered_weeks.build
+    first_day = Date.today.beginning_of_week
+    weeks = @planning.buffered_weeks.where("first_day >= ?", first_day).to_a
+
+    while weeks.size < 4
+      monday = first_day + (weeks.size).weeks
+      factory = BufferedWeekFactory.new(@planning, monday)
+      factory.create
+      weeks << factory.week
     end
   end
 end

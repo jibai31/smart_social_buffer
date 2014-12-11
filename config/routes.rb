@@ -17,6 +17,10 @@ Rails.application.routes.draw do
   devise_scope :user do
     resources :accounts, only: [:index, :destroy] do
       resources :plannings, only: [:show]
+      resources :buffered_weeks, only: [] do
+        get 'preview'
+        get 'plan'
+      end
     end
     get '/settings' => "accounts#index", as: :settings
   end
