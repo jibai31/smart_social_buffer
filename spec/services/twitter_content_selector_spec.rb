@@ -88,7 +88,7 @@ describe TwitterContentSelector do
     end
   end
 
-  describe "cannot post more than number of messages" do
+  describe "cannot post more than there are messages" do
     before(:each) do
       @c1 = create(:content_with_two_messages, posts_count: 0)
       @c2 = create(:content_with_two_messages, posts_count: 1)
