@@ -8,7 +8,10 @@ class Account < ActiveRecord::Base
 
   delegate :contents, to: :user
 
+  after_create :create_planning
+
   def self.implemented
     where(provider: ['twitter'])
   end
+
 end

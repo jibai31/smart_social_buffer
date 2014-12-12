@@ -9,4 +9,11 @@ p.text-center
   br
   | It's ok because the user already trusts the messages that got written.
 
-= render @planning.buffered_weeks
+- @planning.buffered_weeks.each do |week|
+  .week-actions
+    = link_to "Preview", preview_path(@account, week), class: 'btn btn-primary js-preview', remote: true
+    | &nbsp;
+    = link_to "Plan", plan_path(@account, week), class: 'btn btn-danger', remote: true
+    br
+    br
+  = render week

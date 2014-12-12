@@ -1,0 +1,51 @@
+.getting-started {
+  .header {
+    margin-bottom: 40px;
+  }
+
+  .step {
+    margin-bottom: 40px;
+
+    .step-nb {
+      text-align: center;
+
+      .badge {
+        font-size: 40px;
+        font-weight: bold;
+        border-radius: 23px;
+        padding: 3px 12px;
+        background-color: #aaa;
+      }
+    }
+
+    .step-title {
+      margin-bottom: 5px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .btn {
+      margin-top: 10px;
+    }
+
+    .step-content {
+      vertical-align: middle;
+
+      .btn {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .step.done {
+    opacity: 0.5;
+  }
+
+  .step.next {
+    opacity: 0.5;
+
+    .badge {
+      background-color: #428bca;
+    }
+  }
+}

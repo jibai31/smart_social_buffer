@@ -1,6 +1,70 @@
-h2 Welcome #{current_user.name}!
+.getting-started
+  .header
+    h2 Hi, I'm your Community Manager Assistant
 
-h3 Let's get started!
-p= link_to 'Add new content', '#', class: 'btn btn-primary'
-p= link_to 'Connect new accounts', accounts_path, class: 'btn btn-default'
-p= link_to 'Edit your settings', edit_user_registration_path, class: 'btn btn-default'
+    h3 I'll get started after those quick steps:
+
+  .row.step class=('done' if @account)
+    .step-nb.col-xs-2
+      .badge 1
+    .col-xs-10
+      .row
+        .col-sm-8
+          .step-title What's your Twitter account?
+          .step-content Connect your Twitter account
+        .col-sm-4
+          - if @account
+            - btn_class = "btn-default disabled"
+            - btn_text = "Connected"
+          - else
+            - btn_class = "btn-primary"
+            - btn_text = "Connect Twitter"
+          = link_to btn_text, accounts_path, class: "btn btn-lg btn-block #{btn_class}"
+
+  .row.step class=(!@account ? 'next' : ('done' if @blog))
+    .step-nb.col-xs-2
+      .badge 2
+    .col-xs-10
+      .step-title Where's your blog?
+      .step-content
+        = simple_form_for Blog.new do |f|
+          .row
+            - placeholder = @blog ? @blog.url : "Eg, blog.mycompany.com"
+            - disabled = (!@account || @blog)
+            = f.input :url, label: false, placeholder: placeholder,
+              input_html: {class: "input-lg", disabled: disabled}, wrapper_html: {class: "col-sm-8"}
+            .col-sm-4
+              - if !@account
+                - btn_class = "btn-default disabled"
+                - btn_text = "Add a blog"
+              - elsif @blog
+                - btn_class = "btn-default disabled"
+                - btn_text = "Blog added"
+              - else
+                - btn_class = "btn-primary"
+                - btn_text = "Add a blog"
+              = f.button :submit, btn_text, class: "btn btn-lg btn-block #{btn_class}"
+
+  .row.step class=(!@account || !@blog ? 'next' : ('done' if @full_planning))
+    .step-nb.col-xs-2
+      .badge 3
+    .col-xs-10
+      .row
+        .col-sm-8
+          .step-title Validate planning
+          .step-content Start publishing your content now
+        .col-sm-4
+          - if @account
+            - btn_class = "btn-primary js-preview"
+            - btn_path = preview_path(@account, @week)
+            - btn2_class = "btn-danger js-plan"
+            - btn2_path = plan_path(@account, @week)
+          - else
+            - btn_class = "btn-default disabled"
+            - btn_path = '#'
+            - btn2_class = "js-plan"
+            - btn2_path = '#'
+          = link_to "View planning", btn_path, remote: true, class: "btn btn-lg btn-block #{btn_class}"
+          = link_to "Save planning", btn2_path, remote: true, class: "btn btn-lg btn-block #{btn2_class}"
+
+  .week id="week#{@week.id}"
