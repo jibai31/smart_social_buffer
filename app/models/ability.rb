@@ -10,7 +10,8 @@ class Ability
     return unless user
 
     # CREATE
-    can :create, [Blog, Content, Message]
+    can :create, [Content, Message]
+    can [:create, :autoimport], Blog
     can [:create, :fill], BufferedPost
 
     # READ

@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     member do
       get 'import'
     end
+    collection do
+      post 'autoimport'
+    end
   end
 
   # Users, accounts and planning

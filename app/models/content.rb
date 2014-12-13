@@ -5,7 +5,7 @@ class Content < ActiveRecord::Base
   belongs_to :blog
   has_many :messages, dependent: :destroy
 
-  validates_presence_of :url
+  validates_presence_of :url, :category_id
 
   def create_default_messages!
     user.connected_accounts.each do |social_network|

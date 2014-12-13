@@ -34,6 +34,7 @@ class AccountsController < Devise::OmniauthCallbacksController
   private
 
   def try_sign_in_user
+    logger.debug auth.to_yaml
     account = Account.find_by_provider_and_uid(auth.provider, auth.uid)
     user = current_user || User.find_by_email(auth.info.email)
 

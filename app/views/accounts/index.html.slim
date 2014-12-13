@@ -4,6 +4,9 @@ p You have successfully linked the following accounts:
 .social
   .social-signin-buttons
     = render 'accounts/account', provider: "facebook"
+    hr
     = render 'accounts/account', provider: "google_oauth2"
+    hr
     = render 'accounts/account', provider: "twitter"
+    hr
     = render 'accounts/account', provider: "linkedin"

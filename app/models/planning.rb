@@ -1,6 +1,9 @@
 class Planning < ActiveRecord::Base
   belongs_to :account
+
+  # Weeks
   has_many :buffered_weeks, dependent: :destroy
+  after_create :initialize_coming_weeks
 
   # Instance methods
 
@@ -16,7 +19,7 @@ class Planning < ActiveRecord::Base
   def initialize_coming_weeks
     first_day = beginning_of_current_week
     weeks = coming_weeks(first_day).to_a
-    while weeks.size < 4
+    while weeks.size < 2
       monday = first_day + (weeks.size).weeks
       factory = BufferedWeekFactory.new(self, monday)
       factory.create

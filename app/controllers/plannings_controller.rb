@@ -11,8 +11,10 @@ class PlanningsController < ApplicationController
 
   def index
     @account = @accounts.first
-    @planning = @account.planning
-    @planning.initialize_coming_weeks
+    if @account
+      @planning = @account.planning
+      @planning.initialize_coming_weeks
+    end
     render :show
   end
 

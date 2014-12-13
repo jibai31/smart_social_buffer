@@ -11,7 +11,11 @@
       .row
         .col-sm-8
           .step-title What's your Twitter account?
-          .step-content Connect your Twitter account
+          .step-content
+            - if @account
+              | Connected with #{@account.name}
+            - else
+              | Connect your Twitter account
         .col-sm-4
           - if @account
             - btn_class = "btn-default disabled"
@@ -19,7 +23,7 @@
           - else
             - btn_class = "btn-primary"
             - btn_text = "Connect Twitter"
-          = link_to btn_text, accounts_path, class: "btn btn-lg btn-block #{btn_class}"
+          = link_to btn_text, user_omniauth_authorize_path(:twitter), class: "btn btn-lg btn-block #{btn_class}"
 
   .row.step class=(!@account ? 'next' : ('done' if @blog))
     .step-nb.col-xs-2
@@ -27,7 +31,7 @@
     .col-xs-10
       .step-title Where's your blog?
       .step-content
-        = simple_form_for Blog.new do |f|
+        = simple_form_for Blog.new, url: autoimport_blogs_path do |f|
           .row
             - placeholder = @blog ? @blog.url : "Eg, blog.mycompany.com"
             - disabled = (!@account || @blog)

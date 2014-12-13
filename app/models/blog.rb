@@ -11,7 +11,7 @@ class Blog < ActiveRecord::Base
   scope :others, -> { where("category_id > 1") }
 
   # Validations
-  validates_presence_of :url
+  validates_presence_of :url, :category_id
 
   # Instance methods
 

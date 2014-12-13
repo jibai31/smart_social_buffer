@@ -7,8 +7,7 @@ class BlogsController < ApplicationController
   end
 
   def create
-    @blog = current_user.blogs.build(blog_params)
-    if @blog.save
+    if create_blog
       redirect_to @blog
     else
       render 'devise/registrations/edit', alert: "Error!"
@@ -28,6 +27,16 @@ class BlogsController < ApplicationController
     redirect_to contents_path
   end
 
+  def autoimport
+    create_blog
+    if FeedImporter.new(@blog).perform
+      redirect_to :back, notice: "#{@blog.contents.count} blog articles successfully imported"
+    else
+      @blog.destroy
+      redirect_to :back, alert: "<strong>Something went wrong!</strong> Please verify the blog URL"
+    end
+  end
+
   def import
     if FeedImporter.new(@blog).perform
       redirect_to @blog, notice: "Blog posts successfully imported"
@@ -40,5 +49,11 @@ class BlogsController < ApplicationController
 
   def blog_params
     params.require(:blog).permit(:name, :url, :category_id)
+  end
+
+  def create_blog
+    @blog = current_user.blogs.build(blog_params)
+    @blog.category_id = 1 if @blog.category_id.nil?
+    @blog.save
   end
 end

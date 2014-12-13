@@ -1,19 +1,14 @@
 = render 'plannings/header'
 
-p.text-center
-  | In the planning we don't actually show the messages to be posted.
-  br
-  | We only show the content (category + URL) which is much shorter.
-  br
-  | Then on hover the message is actually displayed.
-  br
-  | It's ok because the user already trusts the messages that got written.
-
-- @planning.buffered_weeks.each do |week|
-  .week-actions
-    = link_to "Preview", preview_path(@account, week), class: 'btn btn-primary js-preview', remote: true
-    | &nbsp;
-    = link_to "Plan", plan_path(@account, week), class: 'btn btn-danger', remote: true
-    br
-    br
-  = render week
+- if @planning
+  - @planning.buffered_weeks.each do |week|
+    .week-actions
+      = link_to "Preview", preview_path(@account, week), class: 'btn btn-primary js-preview', remote: true
+      | &nbsp;
+      = link_to "Plan", plan_path(@account, week), class: 'btn btn-danger', remote: true
+      br
+      br
+    = render week
+- else
+  p You need to connect a Twitter account first.
+  p= render 'accounts/account', provider: "twitter"
