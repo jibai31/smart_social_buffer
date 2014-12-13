@@ -24,4 +24,8 @@ class Content < ActiveRecord::Base
   def messages_on(social_network)
     messages.where(social_network: social_network)
   end
+
+  def self.with_messages_on(social_network)
+    joins(:messages).where(messages: {social_network: social_network})
+  end
 end

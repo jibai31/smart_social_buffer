@@ -30,7 +30,7 @@ class TwitterWeekLoadBalancer
   end
 
   def contents_messages_count(contents)
-    @contents_messages_count ||= contents.joins(:messages).group(:content_id).count("messages.id")
+    @contents_messages_count ||= contents.with_messages_on(account.provider).group(:content_id).count("messages.id")
   end
 
   def nb_messages_postable_in_a_week(content_id, nb_messages = nil)

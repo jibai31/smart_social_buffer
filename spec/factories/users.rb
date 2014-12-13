@@ -25,6 +25,7 @@ FactoryGirl.define do
 
   factory :content do
     url "some_url"
+    category_id 1
 
     factory :content_with_messages do
       ignore do
