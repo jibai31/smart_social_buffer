@@ -1,0 +1,7 @@
+| var planBtn = $('#jsPlanWeek#{@week.id}');
+| planBtn.hide();
+| planBtn.parents('.step').addClass('done');
+
+| var week = $('#week#{@week.id}');
+| var congratulationStep = $("#{escape_javascript(render 'statics/step_add_content')}");
+| week.prepend(congratulationStep);

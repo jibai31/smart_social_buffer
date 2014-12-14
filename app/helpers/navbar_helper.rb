@@ -1,13 +1,13 @@
 module NavbarHelper
 
-  def navbar_menu(title, url)
-    content_tag(:li, class: ('active' if page_from_menu?(title))) do
+  def navbar_menu(title, url, layout_name = nil)
+    content_tag(:li, class: ('active' if page_from_menu?(title, layout_name))) do
       link_to title, url
     end
   end
 
-  def page_from_menu?(menu)
-    current_layout == menu.downcase
+  def page_from_menu?(menu, layout_name = nil)
+    current_layout == (layout_name || menu.downcase)
   end
 
   def current_layout

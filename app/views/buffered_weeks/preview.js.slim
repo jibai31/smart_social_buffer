@@ -1,8 +1,9 @@
 | var previewBtn = $('#jsPreviewWeek#{@week.id}');
 | var planBtn = $('#jsPlanWeek#{@week.id}');
 | previewBtn.hide();
-| planBtn.css("display", "block");
 | previewBtn.parents('.step').addClass('done');
+| planBtn.css("display", "block");
+| planBtn.parents('.step').removeClass('next');
 
 | var previewWeek = $("#{escape_javascript(render @week)}");
 | var week = $('#week#{@week.id}');
