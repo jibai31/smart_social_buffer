@@ -3,9 +3,10 @@
 - if @planning
   - @planning.buffered_weeks.each do |week|
     .week-actions
-      = link_to "Preview", preview_path(@account, week), class: 'btn btn-primary js-preview', remote: true
-      | &nbsp;
-      = link_to "Plan", plan_path(@account, week), class: 'btn btn-danger', remote: true
+      = link_to "Preview", preview_path(@account, week), remote: true,
+        class: 'btn btn-primary js-preview', id: "jsPreviewWeek#{week.id}",
+        data: {disable_with: "One moment..."}
+      = link_to "Plan", plan_path(@account, week), remote: true, class: 'btn btn-danger'
       br
       br
     = render week

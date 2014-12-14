@@ -55,20 +55,38 @@
     .col-xs-10
       .row
         .col-sm-8
-          .step-title Validate planning
-          .step-content Start publishing your content now
+          .step-title Preview planning
+          .step-content See what's going to be posted
         .col-sm-4
           - if @account
+            - btn_id = "jsPreviewWeek#{@week.id}"
             - btn_class = "btn-primary js-preview"
             - btn_path = preview_path(@account, @week)
-            - btn2_class = "btn-danger js-plan"
-            - btn2_path = plan_path(@account, @week)
           - else
+            - btn_id = ""
             - btn_class = "btn-default disabled"
             - btn_path = '#'
-            - btn2_class = "js-plan"
-            - btn2_path = '#'
-          = link_to "View planning", btn_path, remote: true, class: "btn btn-lg btn-block #{btn_class}"
-          = link_to "Save planning", btn2_path, remote: true, class: "btn btn-lg btn-block #{btn2_class}"
+          = link_to "View planning", btn_path, remote: true,
+            class: "btn btn-lg btn-block #{btn_class}", id: btn_id,
+            data: {disable_with: "One moment..."}
+
+  .row.step class=(!@account || !@blog ? 'next' : ('done' if @full_planning))
+    .step-nb.col-xs-2
+      .badge 4
+    .col-xs-10
+      .row
+        .col-sm-8
+          .step-title Validate planning
+          .step-content Your content will get published accordingly.
+        .col-sm-4
+          - if @account
+            - btn_id = "jsPlanWeek#{@week.id}"
+            - btn_class = "btn-danger js-plan"
+            - btn_path = plan_path(@account, @week)
+          - else
+            - btn_id = ""
+            - btn_class = ""
+            - btn_path = '#'
+          = link_to "Save planning", btn_path, remote: true, class: "btn btn-lg btn-block #{btn_class}", id: btn_id
 
   .week id="week#{@week.id}"

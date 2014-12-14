@@ -15,10 +15,10 @@ class Ability
     can [:create, :fill], BufferedPost
 
     # READ
-    can :read, [Blog, Content, BufferedPost], user_id: user.id
+    can :read, [Blog, Content, Account, BufferedPost], user_id: user.id
     can :manage, Message, content: {user_id: user.id}
     can :read, Planning, account: {user_id: user.id}
-    can :read, Account, user: {admin: true}
+    cannot :index, Account, user: {admin: false}
 
     # UPDATE
     can :update, Content, user_id: user.id

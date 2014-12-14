@@ -1,0 +1,4 @@
+thead
+  tr
+    - buffered_week.buffered_days.each do |day|
+      th= day.day.to_s(:short)

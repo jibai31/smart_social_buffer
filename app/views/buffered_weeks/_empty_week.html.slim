@@ -1,21 +1,13 @@
 .table-responsive
   table.table
-    thead
-      tr
-        th M 
-        th T 
-        th W 
-        th T 
-        th F 
-        th S 
-        th S 
+    = render 'buffered_weeks/header', buffered_week: buffered_week
     tbody
       tr
         - buffered_week.buffered_days.each do |day|
           td
-            - (1..rand(3)).each do |i|
-              br
+            br
+            br
             hr
-            - (1..rand(3)).each do |i|
-              br
+            br
+            br
             hr
