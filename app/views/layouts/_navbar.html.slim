@@ -11,8 +11,8 @@
     .collapse.navbar-collapse
       - if user_signed_in?
         ul.nav.navbar-nav
+          = navbar_menu 'Getting started', root_path
           = navbar_menu 'Contents', contents_path
           = navbar_menu 'Planning', plannings_path
-          = navbar_menu 'Settings', settings_path
         ul.nav.navbar-nav.navbar-right
           li= link_to 'Sign out', destroy_user_session_path, method: :delete

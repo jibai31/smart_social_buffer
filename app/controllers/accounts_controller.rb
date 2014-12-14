@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class AccountsController < Devise::OmniauthCallbacksController
-  load_and_authorize_resource only: [:index, :destroy]
+  load_and_authorize_resource only: [:index, :destroy], through: :current_user
   layout "settings", only: [:index]
 
   def index
