@@ -6,10 +6,12 @@ describe WeekPlanner do
 
   let(:user)    { create(:user_with_account) }
   let(:account) { user.accounts.first }
-  let(:week)    { BufferedWeekFactory.new(account.planning).build }
-  let(:service) { WeekPlanner.new(account, week) }
+  let(:service) { WeekPlanner.new(account, @week) }
 
   before(:each) do
+    buffered_week_factory = BufferedWeekFactory.new(account.planning)
+    buffered_week_factory.create
+    @week = buffered_week_factory.week
     user.contents << create_list(:content_with_messages, 6, number_of_messages: 5)
   end
 
@@ -18,24 +20,24 @@ describe WeekPlanner do
       expect(user.contents.count).to eq 6
       expect(user.contents.first.messages.count).to eq 5
 
-      expect(posts_count week).to eq 0
+      expect(posts_count @week).to eq 0
 
       service.preview
       # service.print
 
-      expect(posts_count week).to eq 18
+      expect(posts_count @week).to eq 18
     end
 
     it "doesn't create anything" do
       service.preview
-      expect(week.posts_count).to eq 0
+      expect(@week.posts_count).to eq 0
     end
   end
 
   describe "perform" do
     it "creates BufferedPosts" do
       service.perform
-      expect(week.posts_count).to eq 18 
+      expect(@week.posts_count).to eq 18
     end
   end
 end

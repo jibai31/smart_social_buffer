@@ -44,7 +44,11 @@ class WeekPlanner
 
   def perform
     preview
-    week.save
+    BufferedPost.transaction do
+      week.buffered_days.each do |day|
+        day.save
+      end
+    end
   end
 
   # For tests only
