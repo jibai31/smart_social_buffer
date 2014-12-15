@@ -1,14 +1,57 @@
 require 'rails_helper'
+require 'support/buffer_macros'
+RSpec.configure{|c| c.include BufferMacros}
 
 describe TwitterWeekLoadBalancer do
 
-  let(:user)    { create(:user_with_account) }
-  let(:account) { user.accounts.first }
-  let(:week)    { BufferedWeekFactory.new(account.planning).build }
-  let(:service) { TwitterWeekLoadBalancer.new(week, account) }
+  let(:user)      { create(:user_with_account) }
+  let(:account)   { user.accounts.first }
+  let(:week)      { build_test_week }
+  let(:service)   { TwitterWeekLoadBalancer.new(week, account, test_today) }
+
+  let(:middle_day){ Date.new(2014, 12, 17) }
+  let(:last_day)  { Date.new(2014, 12, 21) }
+  let(:after_day) { Date.new(2014, 12, 22) }
+  let(:first_day) { Date.new(2014, 12, 15) }
 
   it "loads nothing for no content" do
     expect(service.perform).to eq [0, 0, 0, 0, 0, 0, 0]
+  end
+
+  describe "if we're on the middle of the week" do
+    let(:service) { TwitterWeekLoadBalancer.new(week, account, middle_day) }
+
+    it "loads nothing for the past days" do
+      user.contents << create_list(:content_with_messages, 9)
+      expect(service.perform).to eq [0, 0, 0, 4, 4, 3, 4]
+    end
+  end
+
+  describe "if we're on the last day of the week" do
+    let(:service) { TwitterWeekLoadBalancer.new(week, account, last_day) }
+
+    it "loads nothing" do
+      user.contents << create_list(:content_with_messages, 9)
+      expect(service.perform).to eq [0, 0, 0, 0, 0, 0, 0]
+    end
+  end
+
+  describe "if we're on the first day of the week" do
+    let(:service) { TwitterWeekLoadBalancer.new(week, account, first_day) }
+
+    it "loads nothing for the first day" do
+      user.contents << create_list(:content_with_messages, 9)
+      expect(service.perform).to eq [0, 4, 4, 4, 4, 3, 4]
+    end
+  end
+
+  describe "if we're after the week" do
+    let(:service) { TwitterWeekLoadBalancer.new(week, account, after_day) }
+
+    it "loads nothing" do
+      user.contents << create_list(:content_with_messages, 9)
+      expect(service.perform).to eq [0, 0, 0, 0, 0, 0, 0]
+    end
   end
 
   describe "with single-message contents" do

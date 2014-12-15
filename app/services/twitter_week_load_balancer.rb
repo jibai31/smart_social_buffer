@@ -3,10 +3,11 @@ class TwitterWeekLoadBalancer
   MAX_NB_CONTENTS_POSTED_PER_WEEK = 3
   MAX_NB_MESSAGES_POSTED_PER_DAY = 12
 
-  def initialize(week, account)
+  def initialize(week, account, today = Date.today)
     # Data
     @week = week
     @account = account
+    @today = today
 
     @week_load = week.buffered_days.map{|day| 0}
   end
@@ -19,7 +20,10 @@ class TwitterWeekLoadBalancer
     step = 2
     first_index = first_index_when_empty
     for i in 0..nb_available_messages-1
-      week_load[(first_index + i*step) % nb_days] += 1
+      day_index = (first_index + i*step) % nb_days
+      if day_index > today_index
+        week_load[(first_index + i*step) % nb_days] += 1
+      end
     end
 
     return week_load
@@ -39,6 +43,16 @@ class TwitterWeekLoadBalancer
   end
 
   private
+
+  def today_index
+    if @today < week.first_day
+      -1
+    elsif @today >= week.first_day + 1.week
+      7
+    else
+      @today.cwday - 1
+    end
+  end
 
   def nb_days
     week_load.size

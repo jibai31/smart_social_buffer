@@ -1,14 +1,16 @@
 require 'rails_helper'
+require 'support/buffer_macros'
+RSpec.configure{|c| c.include BufferMacros}
 
 describe TwitterContentSelector do
 
   let(:user)    { create(:user_with_account) }
   let(:account) { user.accounts.first }
-  let(:week)    { BufferedWeekFactory.new(account.planning).build }
+  let(:week)    { build_test_week }
   let(:day)     { week.buffered_days.first }
 
   before(:each) do
-    @balancer = TwitterWeekLoadBalancer.new(week, account)
+    @balancer = TwitterWeekLoadBalancer.new(week, account, test_today)
     @service = TwitterContentSelector.new(account, @balancer)
   end
 
@@ -24,6 +26,11 @@ describe TwitterContentSelector do
 
     it "raises an exception when requesting too many contents" do
       expect{@service.get_top_contents(day, 24)}.to raise_error(ArgumentError)
+    end
+
+    it "returns nothing when requesting 0 content" do
+      top_contents = @service.get_top_contents(day, 0)
+      expect(top_contents).to eq []
     end
   end
 

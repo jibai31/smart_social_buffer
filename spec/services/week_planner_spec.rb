@@ -6,12 +6,10 @@ describe WeekPlanner do
 
   let(:user)    { create(:user_with_account) }
   let(:account) { user.accounts.first }
-  let(:service) { WeekPlanner.new(account, @week) }
+  let(:service) { WeekPlanner.new(account, @week, today: test_today) }
 
   before(:each) do
-    buffered_week_factory = BufferedWeekFactory.new(account.planning)
-    buffered_week_factory.create
-    @week = buffered_week_factory.week
+    @week = create_test_week
     user.contents << create_list(:content_with_messages, 6, number_of_messages: 5)
   end
 

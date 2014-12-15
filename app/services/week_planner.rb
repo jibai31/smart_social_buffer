@@ -5,9 +5,10 @@ class WeekPlanner
     # Data
     @account = account
     @week = week
+    @today = args[:today] || Date.today
 
     # Services
-    @week_load_balancer = args[:week_load_balancer] || WeekLoadBalancerFactory.new(account).build(week)
+    @week_load_balancer = args[:week_load_balancer] || WeekLoadBalancerFactory.new(account).build(week, @today)
     @message_selector = args[:message_selector] || MessageSelectorFactory.new(account).build
     @day_planner = args[:day_planner] || DayPlannerFactory.new(account).build(@message_selector)
     @content_selector = args[:content_selector] || ContentSelectorFactory.new(account).build(@week_load_balancer)

@@ -20,6 +20,20 @@ module BufferMacros
     buffered_post.run_at.strftime('%Y-%m-%d') == day.strftime('%Y-%m-%d')
   end
 
+  def test_today
+    Date.new(2014,12,14)
+  end
+
+  def build_test_week
+    BufferedWeekFactory.new(account.planning, Date.new(2014,12,15)).build
+  end
+
+  def create_test_week
+    week = build_test_week
+    week.save
+    week
+  end
+
   # RSpec Matchers
 
   RSpec::Matchers.define :run_around do |expected_time|

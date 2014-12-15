@@ -16,13 +16,11 @@ class BufferedWeekFactory
   end
 
   def create
-    build
-    @week.save
+    build.save
   end
 
   def create!
-    build
-    @week.save!
+    build.save!
   end
 
   private

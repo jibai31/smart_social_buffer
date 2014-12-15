@@ -13,7 +13,9 @@
         tbody
           tr
             - buffered_week.buffered_days.each do |day|
-              td
+              - day_class = day.buffered_posts.size == 0 ? ['empty-day'] : []
+              - day_class << 'past-day' if day.day < Date.today
+              td class=(day_class.join)
                 - day.buffered_posts.each do |buffered_post|
                   strong= buffered_post.run_at.to_s(:time)
                   br

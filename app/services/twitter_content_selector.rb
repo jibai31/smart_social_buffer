@@ -16,6 +16,7 @@ class TwitterContentSelector
   #  to select best contents for a given day (eg, quotes on Wednesdays).
   def get_top_contents(day, nb_messages)
     raise_argument_error(nb_messages) if nb_messages > nb_available_messages
+    return [] if nb_messages == 0
 
     top_content_ids = top_contents(nb_messages)
     @last_buffered_contents = top_content_ids.to_a
