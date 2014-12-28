@@ -2,10 +2,12 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :social_network_id, collection: current_user.accounts.implemented,
-      label_method: :social_network, value_method: :social_network_id
-    = f.input :text
-    = f.input :post_only_once, wrapper: :checkbox, input_html: {class: 'form-checkbox'}
+    - if @available_accounts.count > 1
+      = f.input :social_network_id, collection: current_user.accounts.implemented,
+        label_method: :social_network, value_method: :social_network_id
+    - else
+      = f.input :social_network_id, as: :hidden
+    = f.input :text, label: false
 
   .form-actions
     = f.button :submit, "Add message", class: 'btn btn-warning'

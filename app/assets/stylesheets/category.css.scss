@@ -3,9 +3,15 @@
   border-left-width: 8px;
   padding-left: 4px;
 }
-.label-my_content, .tag-my_content{border-color: #00A03E;}
-.label-other_peoples_content, .tag-other_peoples_content{border-color: #53BBF4;}
-.label-questions, .tag-questions{border-color: #982395;}
-.label-quotes_from_others, .tag-quotes_from_others{border-color: #0087CB;}
-.label-resources, .tag-resources{border-color: #777777;}
-.label-words_of_wisdom, .tag-words_of_wisdom{border-color: #FF85CB;}
+.tag-my_content{border-color: #00A03E;}
+.label-my_content{background-color: #00A03E;}
+.tag-other_peoples_content{border-color: #53BBF4;}
+.label-other_peoples_content{background-color: #53BBF4;}
+.tag-questions{border-color: #982395;}
+.label-questions{background-color: #982395;}
+.tag-quotes_from_others{border-color: #0087CB;}
+.label-quotes_from_others{background-color: #0087CB;}
+.tag-resources{border-color: #777777;}
+.label-resources{background-color: #777777;}
+.tag-words_of_wisdom{border-color: #FF85CB;}
+.label-words_of_wisdom{background-color: #FF85CB;}

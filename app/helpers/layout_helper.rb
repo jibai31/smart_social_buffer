@@ -7,7 +7,7 @@ module LayoutHelper
     when "notice"
       "alert-success"
     else
-      "alert-info"
+      "alert-#{flash_type}"
     end
   end
 

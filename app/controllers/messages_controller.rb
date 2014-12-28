@@ -5,7 +5,17 @@ class MessagesController < ApplicationController
   layout "contents"
 
   def new
-    @message = @content.messages.build(post_only_once: @content.post_only_once)
+    @available_accounts = current_user.accounts.implemented
+    if @available_accounts.count == 0
+      flash[:warning] = "You need to connect an account before adding messages."
+      redirect_to settings_path and return
+    end
+
+    @message = @content.messages.build(
+      post_only_once: @content.post_only_once,
+      social_network: @available_accounts.first.social_network,
+      text: "#{@content.title} #{@content.url}"
+    )
   end
 
   def edit
