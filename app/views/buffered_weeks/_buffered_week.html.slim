@@ -1,9 +1,10 @@
-- hide_actions ||= false
-- nb_posts = buffered_week.buffered_days.inject(0){|sum, day| sum + day.buffered_posts.size}
+- nb_posts = buffered_week.preview_posts_count
 
 .week id="week#{buffered_week.id}"
   .description
     strong Week with #{nb_posts} posts
+  - unless @hide_buttons
+    = render 'buffered_weeks/actions', week: buffered_week
   - if nb_posts == 0
     = render 'buffered_weeks/empty_week', buffered_week: buffered_week
   - else

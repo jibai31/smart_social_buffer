@@ -34,7 +34,7 @@ describe TwitterDayPlanner do
     posts = service.perform(day, user.contents)
     posts.each do |p|
       social_network = p.message.social_network
-      expect(social_network).to eq "twitter"
+      expect(social_network.name).to eq "twitter"
     end
   end
 

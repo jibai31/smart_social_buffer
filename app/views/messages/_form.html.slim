@@ -2,7 +2,8 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :social_network, collection: current_user.connected_accounts, label_method: :name, value_method: :code
+    = f.input :social_network_id, collection: current_user.accounts.implemented,
+      label_method: :social_network, value_method: :social_network_id
     = f.input :text
     = f.input :post_only_once, wrapper: :checkbox, input_html: {class: 'form-checkbox'}
 

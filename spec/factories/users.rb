@@ -9,13 +9,14 @@ FactoryGirl.define do
         provider "twitter"
       end
       after(:create) do |user, evaluator|
-        FactoryGirl.create(:account, user: user, provider: evaluator.provider)
+        social_network = SocialNetwork.find_by_provider evaluator.provider
+        create(:account, user: user, social_network: social_network)
       end
     end
   end
 
   factory :account do
-    provider "provider"
+    association :social_network
     uid "12345"
     user
     after(:create) do |account|
@@ -48,7 +49,7 @@ FactoryGirl.define do
 
   factory :message do
     text "Some text"
-    social_network "twitter"
+    social_network_id 1
     association :content
 
     factory :posted_message do

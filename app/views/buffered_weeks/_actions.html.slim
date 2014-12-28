@@ -1,0 +1,8 @@
+.actions
+  - if week.can_preview?
+    = link_to "Preview", preview_path(@account, week), remote: true,
+      class: 'btn btn-primary', data: {disable_with: "One moment..."}
+
+  - if week.can_plan?
+    = link_to "Plan", plan_path(@account, week), remote: true,
+      class: 'btn btn-danger'

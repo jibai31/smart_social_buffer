@@ -35,6 +35,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:content_id, :text, :social_network, :posts_count, :last_posted_at, :post_only_once)
+    params.require(:message).permit(:content_id, :text, :social_network_id, :posts_count, :last_posted_at, :post_only_once)
   end
 end

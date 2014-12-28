@@ -31,12 +31,4 @@ module SocialHelper
       class: "social-img #{provider_name}-md"
   end
 
-  def provider_friendly_name(provider)
-    provider.to_s.split('_').first
-  end
-
-  def user_connected?(accounts, provider)
-    accounts.select{|account| account.provider == provider}.first
-  end
-
 end

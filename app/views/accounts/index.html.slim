@@ -1,12 +1,25 @@
 - title 'Connected accounts'
 
-p You have successfully linked the following accounts:
+- if current_user.connected?(SocialNetwork.twitter)
+  p You have successfully linked the following accounts:
+- else
+  p You can connect the following accounts:
 .social
   .social-signin-buttons
-    = render 'accounts/account', provider: "facebook"
-    hr
-    = render 'accounts/account', provider: "google_oauth2"
-    hr
-    = render 'accounts/account', provider: "twitter"
-    hr
-    = render 'accounts/account', provider: "linkedin"
+    = render 'accounts/account', social_network: SocialNetwork.twitter
+    br
+    br
+    br
+
+.well
+  h3 Coming soon...
+  p You will soon be able to publish on the following medias:
+  .social
+    .social-signin-buttons
+      - @disable_social_buttons = true
+      = render 'accounts/account', social_network: SocialNetwork.facebook
+      hr
+      = render 'accounts/account', social_network: SocialNetwork.google
+      hr
+      = render 'accounts/account', social_network: SocialNetwork.linkedin
+

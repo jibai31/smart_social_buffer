@@ -44,7 +44,7 @@ module BufferMacros
       same_day = same_day(buffered_post)
 
       not_before_time = (posting_time + 20.minutes).hour == expected_time
-      not_after_time  = (posting_time - 20.minutes).hour == (expected_time - 1)
+      not_after_time  = (posting_time - 21.minutes).hour == (expected_time - 1)
 
       same_day && not_before_time && not_after_time
     end

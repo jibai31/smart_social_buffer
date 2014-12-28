@@ -11,20 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141214142955) do
+ActiveRecord::Schema.define(version: 20141228115053) do
 
   create_table "accounts", force: true do |t|
     t.integer "user_id"
-    t.string  "provider"
     t.string  "uid"
     t.string  "token"
     t.string  "token_secret"
     t.string  "username"
     t.string  "email"
     t.string  "avatar"
+    t.integer "social_network_id"
   end
 
-  add_index "accounts", ["provider", "uid"], name: "index_accounts_on_provider_and_uid", using: :btree
+  add_index "accounts", ["social_network_id", "uid"], name: "index_accounts_on_social_network_id_and_uid", using: :btree
+  add_index "accounts", ["social_network_id"], name: "index_accounts_on_social_network_id", using: :btree
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
 
   create_table "blogs", force: true do |t|
@@ -93,16 +94,17 @@ ActiveRecord::Schema.define(version: 20141214142955) do
 
   create_table "messages", force: true do |t|
     t.integer  "content_id"
-    t.text     "text",                           null: false
-    t.string   "social_network",                 null: false
-    t.integer  "posts_count",    default: 0,     null: false
+    t.text     "text",                              null: false
+    t.integer  "posts_count",       default: 0,     null: false
     t.datetime "last_posted_at"
-    t.boolean  "post_only_once", default: false, null: false
+    t.boolean  "post_only_once",    default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "social_network_id"
   end
 
   add_index "messages", ["content_id"], name: "index_messages_on_content_id", using: :btree
+  add_index "messages", ["social_network_id"], name: "index_messages_on_social_network_id", using: :btree
 
   create_table "plannings", force: true do |t|
     t.integer  "account_id"
@@ -111,6 +113,17 @@ ActiveRecord::Schema.define(version: 20141214142955) do
   end
 
   add_index "plannings", ["account_id"], name: "index_plannings_on_account_id", using: :btree
+
+  create_table "social_networks", force: true do |t|
+    t.string   "provider"
+    t.string   "name"
+    t.boolean  "implemented", default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "social_networks", ["implemented"], name: "index_social_networks_on_implemented", using: :btree
+  add_index "social_networks", ["provider"], name: "index_social_networks_on_provider", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

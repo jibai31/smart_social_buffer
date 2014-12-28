@@ -4,6 +4,7 @@ class BufferedWeeksController < ApplicationController
   before_action :load_week
 
   def preview
+    @hide_buttons = params[:hidebuttons]
     WeekPlanner.new(@account, @week).preview
   end
 

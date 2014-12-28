@@ -1,38 +1,24 @@
-# encoding: UTF-8
-class SocialNetwork
+# encoding: utf-8
+class SocialNetwork < ActiveRecord::Base
+  scope :implemented, -> { where(implemented: true) }
 
-  def initialize(provider)
-    @provider = provider
+  def self.twitter
+    find_by_provider "twitter"
   end
 
-  attr_reader :provider
+  def self.facebook
+    find_by_provider "facebook"
+  end
 
-  # Instance methods
+  def self.linkedin
+    find_by_provider "linkedin"
+  end
+
+  def self.google
+    find_by_provider "google_oauth2"
+  end
 
   def to_s
-    name
-  end
-
-  def code
-    @code ||= provider.to_s.split('_').first
-  end
-
-  def name
-    @name ||= code.capitalize
-  end
-
-  # Class methods
-
-  def self.LIST
-    @@social_network_list ||= build_list
-  end
-
-  def self.build_list(providers)
-    providers ||= Devise.omniauth_configs.keys
-    list = []
-    providers.each do |social_network|
-      list << SocialNetwork.new(social_network)
-    end
-    list
+    name.capitalize
   end
 end

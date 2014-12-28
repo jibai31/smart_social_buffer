@@ -1,15 +1,9 @@
 = render 'plannings/header'
 
 - if @planning
-  - @planning.buffered_weeks.each do |week|
-    .week-actions
-      = link_to "Preview", preview_path(@account, week), remote: true,
-        class: 'btn btn-primary js-preview', id: "jsPreviewWeek#{week.id}",
-        data: {disable_with: "One moment..."}
-      = link_to "Plan", plan_path(@account, week), remote: true, class: 'btn btn-danger'
-      br
-      br
-    = render week
+  - @planning.coming_weeks.each do |week|
+    = render week unless week.empty? && week.past?
+
 - else
   p You need to connect a Twitter account first.
-  p= render 'accounts/account', provider: "twitter"
+  p= render 'accounts/account', social_network: SocialNetwork.twitter

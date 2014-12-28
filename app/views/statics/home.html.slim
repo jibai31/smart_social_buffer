@@ -4,28 +4,19 @@
 
     h3 I'll get started after those quick steps:
 
-  .row.step class=('done' if @account)
+  .row.step class=(@data.connect_account_class)
     .step-nb.col-xs-2
       .badge 1
     .col-xs-10
       .row
         .col-sm-8
           .step-title What's your Twitter account?
-          .step-content
-            - if @account
-              | Connected with #{@account.name}
-            - else
-              | Connect your Twitter account
+          .step-content= @data.connect_account_text
         .col-sm-4
-          - if @account
-            - btn_class = "btn-default disabled"
-            - btn_text = "Connected"
-          - else
-            - btn_class = "btn-primary"
-            - btn_text = "Connect Twitter"
-          = link_to btn_text, user_omniauth_authorize_path(:twitter), class: "btn btn-lg btn-block #{btn_class}"
+          = link_to @data.connect_account_btn, user_omniauth_authorize_path(:twitter),
+            class: "btn btn-lg btn-block #{@data.connect_account_btn_class}"
 
-  .row.step class=(!@account ? 'next' : ('done' if @blog))
+  .row.step class=(@data.add_blog_class)
     .step-nb.col-xs-2
       .badge 2
     .col-xs-10
@@ -33,23 +24,12 @@
       .step-content
         = simple_form_for Blog.new, url: autoimport_blogs_path do |f|
           .row
-            - placeholder = @blog ? @blog.url : "Eg, blog.mycompany.com"
-            - disabled = (!@account || @blog)
-            = f.input :url, label: false, placeholder: placeholder,
-              input_html: {class: "input-lg", disabled: disabled}, wrapper_html: {class: "col-sm-8"}
+            = f.input :url, label: false, placeholder: @data.add_blog_placeholder,
+              input_html: {class: "input-lg", disabled: @data.add_blog_input_disabled?}, wrapper_html: {class: "col-sm-8"}
             .col-sm-4
-              - if !@account
-                - btn_class = "btn-default disabled"
-                - btn_text = "Add a blog"
-              - elsif @blog
-                - btn_class = "btn-default disabled"
-                - btn_text = "Blog added"
-              - else
-                - btn_class = "btn-primary"
-                - btn_text = "Add a blog"
-              = f.button :submit, btn_text, class: "btn btn-lg btn-block #{btn_class}"
+              = f.button :submit, @data.add_blog_btn, class: "btn btn-lg btn-block #{@data.add_blog_btn_class}"
 
-  .row.step class=(!@account || !@blog ? 'next' : ('done' if @full_planning))
+  .row.step class=(@data.preview_class)
     .step-nb.col-xs-2
       .badge 3
     .col-xs-10
@@ -58,16 +38,8 @@
           .step-title Preview planning
           .step-content See what's going to be posted
         .col-sm-4
-          - if @account
-            - btn_id = "jsPreviewWeek#{@week.id}"
-            - btn_class = "btn-primary js-preview"
-            - btn_path = preview_path(@account, @week)
-          - else
-            - btn_id = ""
-            - btn_class = "btn-default disabled"
-            - btn_path = '#'
-          = link_to "View planning", btn_path, remote: true,
-            class: "btn btn-lg btn-block #{btn_class}", id: btn_id,
+          = link_to "View planning", @data.preview_btn_path, remote: true,
+            class: "btn btn-lg btn-block #{@data.preview_btn_class}", id: @data.preview_btn_id,
             data: {disable_with: "One moment..."}
 
   .row.step.next
@@ -79,14 +51,7 @@
           .step-title Validate planning
           .step-content Your content will get published accordingly.
         .col-sm-4
-          - if @account
-            - btn_id = "jsPlanWeek#{@week.id}"
-            - btn_class = "btn-danger js-plan"
-            - btn_path = plan_path(@account, @week)
-          - else
-            - btn_id = ""
-            - btn_class = ""
-            - btn_path = '#'
-          = link_to "Save planning", btn_path, remote: true, class: "btn btn-lg btn-block #{btn_class}", id: btn_id
+          = link_to "Save planning", @data.save_btn_path, remote: true,
+            class: "btn btn-lg btn-block #{@data.save_btn_class}", id: @data.save_btn_id
 
-  .week id="week#{@week.id}"
+  .week id="week#{@data.week_id}"

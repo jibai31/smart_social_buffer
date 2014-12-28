@@ -10,7 +10,7 @@ class SocialServiceFactory
   private
 
   def provider
-    @provider ||= SocialNetwork.new(account.provider).name
+    @provider ||= account.social_network
   end
 
 end

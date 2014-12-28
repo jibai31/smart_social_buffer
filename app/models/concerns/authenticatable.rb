@@ -3,8 +3,10 @@ module Authenticatable
   extend ActiveSupport::Concern
 
   def add_provider(auth)
+    social_network = SocialNetwork.find_by_provider(auth['provider'])
+
     accounts.build(
-      provider: auth['provider'],
+      social_network_id: social_network.id,
       uid: auth['uid'],
       username: retrieve_username(auth),
       email: auth['info']['email'],
@@ -19,12 +21,8 @@ module Authenticatable
     save!
   end
 
-  def connected?(provider)
-    accounts.where(provider: provider).first
-  end
-
-  def connected_accounts
-    @connected_accounts ||= SocialNetwork.build_list(accounts.map{|account| account.provider})
+  def connected?(social_network)
+    accounts.where(social_network_id: social_network.id).first
   end
 
   private

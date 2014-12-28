@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+SocialNetwork.create([
+  {provider: 'twitter', name: 'twitter', implemented: true},
+  {provider: 'facebook', name: 'facebook'},
+  {provider: 'google_oauth2', name: 'google'},
+  {provider: 'linkedin', name: 'linkedin'}
+])

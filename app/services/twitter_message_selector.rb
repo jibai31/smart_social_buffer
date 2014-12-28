@@ -24,7 +24,7 @@ class TwitterMessageSelector
   def init_store(contents)
     store = {}
     contents.each do |content|
-      store[content] = content.messages.to_a
+      store[content] = content.messages_on(account.social_network_id).to_a
     end
     store
   end

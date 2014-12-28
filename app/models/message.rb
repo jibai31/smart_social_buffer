@@ -1,7 +1,10 @@
 # encoding: UTF-8
 class Message < ActiveRecord::Base
   belongs_to :content
-  has_many :buffered_posts
+  has_many :buffered_posts, dependent: :destroy
+  belongs_to :social_network
+
+  validates_presence_of :social_network_id
 
   # Class methods
 
