@@ -18,6 +18,22 @@ class SocialNetwork < ActiveRecord::Base
     find_by_provider "google_oauth2"
   end
 
+  def twitter?
+    provider == "twitter"
+  end
+
+  def facebook?
+    provider == "facebook"
+  end
+
+  def linkedin?
+    provider == "linkedin"
+  end
+
+  def google?
+    provider == "google_oauth2"
+  end
+
   def to_s
     name.capitalize
   end

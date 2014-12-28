@@ -30,7 +30,7 @@ class Account < ActiveRecord::Base
   # Instance methods
 
   def name
-    if provider == 'twitter'
+    if social_network.twitter?
       "@#{username}"
     else
       username
