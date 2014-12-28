@@ -22,12 +22,13 @@ gem 'dotenv-rails'
 # Useful gems
 gem 'cancancan'
 
-# Social sign in
+# Social sign in and apis
 gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-linkedin'
+gem 'twitter'
 
 # Other gems
 gem 'feedjira' # Requires: sudo apt-get install libcurl3-dev
