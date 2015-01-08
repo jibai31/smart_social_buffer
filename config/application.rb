@@ -30,5 +30,8 @@ module SmartSocialBuffer
     config.generators.stylesheets = false
     config.generators.javascripts = false
     config.generators.helper      = false
+
+    # Autoload lib files
+    # config.autoload_paths << Rails.root.join('lib')
   end
 end
