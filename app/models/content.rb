@@ -7,18 +7,20 @@ class Content < ActiveRecord::Base
 
   validates_presence_of :url, :category_id
 
-  def create_default_messages!
+  def create_default_messages
     user.accounts.implemented.each do |account|
-      create_default_message!(account.social_network)
+      create_default_message(account.social_network)
     end
   end
 
-  def create_default_message!(social_network)
-    messages.create!(
-      text: "#{title} #{url}",
+  def create_default_message(social_network)
+    msg = Message.new(
+      content: self,
       social_network: social_network,
       post_only_once: post_only_once
     )
+    msg.set_default_text(title, url)
+    msg.save
   end
 
   def messages_on(social_network_id)

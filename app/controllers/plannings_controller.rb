@@ -22,9 +22,4 @@ class PlanningsController < ApplicationController
     @planning.initialize_coming_weeks
   end
 
-  private
-
-  def load_accounts
-    @accounts = current_user.accounts.implemented
-  end
 end

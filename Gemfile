@@ -29,6 +29,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-linkedin'
 gem 'twitter'
+gem 'twitter-text'
 
 # Other gems
 gem 'feedjira' # Requires: sudo apt-get install libcurl3-dev

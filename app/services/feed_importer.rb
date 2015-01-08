@@ -18,7 +18,7 @@ class FeedImporter
       if existing_content = find_existing_content(entry.url)
         existing_content.update_attributes(blog: blog)
       else
-        create_content!(entry)
+        create_content(entry)
       end
     end
   end
@@ -29,14 +29,14 @@ class FeedImporter
     user.contents.find_by_url(url)
   end
 
-  def create_content!(entry)
-    content = blog.contents.create!(
+  def create_content(entry)
+    content = blog.contents.create(
       title: entry.title,
       url: entry.url,
       user: user,
       category: blog.category
     )
-    content.create_default_messages!
+    content.create_default_messages
   end
 
 end

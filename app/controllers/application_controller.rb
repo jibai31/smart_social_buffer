@@ -8,4 +8,10 @@ class ApplicationController < ActionController::Base
     flash[:error] = exception.message
     redirect_to root_url
   end
+
+  protected
+
+  def load_accounts
+    @accounts = current_user.accounts.implemented
+  end
 end

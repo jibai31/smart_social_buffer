@@ -6,7 +6,7 @@ describe Account do
     let(:user) { create(:user) }
 
     before(:each) do
-      @valid_attr = {provider: "whatever", uid: "123", user: user}
+      @valid_attr = {social_network_id: 1, uid: "123", user: user}
       @new_account = Account.new(@valid_attr)
     end
 
@@ -15,8 +15,8 @@ describe Account do
       expect(@new_account).not_to be_valid
     end
 
-    it "requires a provider" do
-      @new_account.provider = ""
+    it "requires a social network" do
+      @new_account.social_network_id = nil
       expect(@new_account).not_to be_valid
     end
 

@@ -4,3 +4,16 @@
   padding: 10px;
   margin-bottom: 10px;
 }
+
+#new_message {
+  .msg-chars-left {
+    display: inline-block;
+    padding: 6px 12px;
+    vertical-align: middle;
+    margin-left: 5px;
+    color: #8899a6;
+  }
+  .msg-chars-left.overflow {
+    color: #d40d12;
+  }
+}
