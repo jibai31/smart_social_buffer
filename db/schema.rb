@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141228115053) do
+ActiveRecord::Schema.define(version: 20150109145829) do
 
   create_table "accounts", force: true do |t|
     t.integer "user_id"
@@ -91,6 +91,22 @@ ActiveRecord::Schema.define(version: 20141228115053) do
 
   add_index "contents", ["blog_id"], name: "index_contents_on_blog_id", using: :btree
   add_index "contents", ["user_id"], name: "index_contents_on_user_id", using: :btree
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "messages", force: true do |t|
     t.integer  "content_id"

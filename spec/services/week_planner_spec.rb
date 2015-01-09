@@ -26,9 +26,13 @@ describe WeekPlanner do
       expect(posts_count @week).to eq 18
     end
 
-    it "doesn't create anything" do
+    it "doesn't create BufferedPosts" do
       service.preview
       expect(@week.posts_count).to eq 0
+    end
+
+    it "doesn't create background jobs" do
+      expect{service.preview}.to change{Delayed::Job.count}.by(0)
     end
   end
 
@@ -36,6 +40,20 @@ describe WeekPlanner do
     it "creates BufferedPosts" do
       service.perform
       expect(@week.posts_count).to eq 18
+    end
+
+    it "creates background jobs" do
+      expect{service.perform}.to change{Delayed::Job.count}.by(18)
+    end
+
+    it "increments the contents posts count" do
+      first_content = user.contents.first
+      expect{service.perform}.to change{first_content.reload.posts_count}.by(3)
+    end
+
+    it "increments the messages posts count" do
+      first_message = user.contents.first.messages.first
+      expect{service.perform}.to change{first_message.reload.posts_count}.by(1)
     end
   end
 end

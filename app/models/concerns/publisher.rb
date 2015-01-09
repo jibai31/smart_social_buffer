@@ -8,8 +8,6 @@ module Publisher
     rescue => e
       return false
     end
-    message.posts_count += 1
-    message.content.posts_count += 1
 
     return tweet
   end

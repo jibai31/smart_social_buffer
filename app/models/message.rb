@@ -2,6 +2,7 @@
 class Message < ActiveRecord::Base
   # Concerns
   include TweetMessage
+  include PostCounter
 
   # Associations
   belongs_to :content

@@ -3,6 +3,8 @@ class BufferedWeek < ActiveRecord::Base
   has_many :buffered_days, dependent: :destroy
   has_many :buffered_posts, through: :buffered_days
 
+  delegate :account, to: :planning
+
   def posts_count
     BufferedPost.where(buffered_day_id: buffered_days.pluck(:id)).count
   end
