@@ -3,7 +3,7 @@ class ContentsController < ApplicationController
   load_and_authorize_resource through: :current_user
 
   def index
-    @contents = current_user.contents_with_messages
+    @contents = current_user.contents_with_messages.order(created_at: :desc)
     if filter_category_id = params[:category_id]
       @contents = @contents.where(category_id: filter_category_id)
     end
@@ -19,10 +19,10 @@ class ContentsController < ApplicationController
   end
 
   def create
-    if @content.save
-      redirect_to contents_path
-    else
-      render :new
+    success = @content.save
+    respond_to do |format|
+      format.html { success ? redirect_to(contents_path) : render(:new) }
+      format.js
     end
   end
 

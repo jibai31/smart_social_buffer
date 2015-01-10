@@ -1,3 +1,13 @@
+.contents-top {
+  margin-bottom: 10px;
+  overflow: hidden;
+
+  .add-content-btn {
+    position: relative;
+    top: -3px;
+  }
+}
+
 .content {
   margin-bottom: 20px;
 

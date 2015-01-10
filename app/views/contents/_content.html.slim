@@ -1,7 +1,8 @@
-.content
+.content id="content#{content.id}"
   = render 'contents/content_header', content: content
-  .content-messages
+  .content-messages.container-fluid
     = render content.messages
-  = link_to 'Add message', new_content_message_path(content), class: 'btn btn-default btn-warning pull-right'
+  = link_to 'Add message', new_content_message_path(content), remote: can?(:create, Message.new),
+    class: 'btn btn-default btn-warning pull-right add-msg-btn'
 
   .clearfix

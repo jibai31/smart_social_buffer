@@ -7,7 +7,7 @@ module HasContents
   end
 
   def contents_with_messages
-    contents.includes(:category, :messages)
+    contents.includes(:category, :messages).includes(messages: :social_network)
   end
 
 end

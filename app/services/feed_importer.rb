@@ -36,7 +36,6 @@ class FeedImporter
       user: user,
       category: blog.category
     )
-    content.create_default_messages
   end
 
 end

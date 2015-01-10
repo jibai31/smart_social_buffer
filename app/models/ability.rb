@@ -10,7 +10,8 @@ class Ability
     return unless user
 
     # CREATE
-    can :create, [Content, Message]
+    can :create, Content
+    can :create, Message if user.accounts.implemented.count > 0
     can [:create, :autoimport], Blog
     can [:create, :fill], BufferedPost
 

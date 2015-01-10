@@ -1,0 +1,11 @@
+| var contentsTop = $('.contents-top');
+| var contentForm = contentsTop.find('.new_content');
+| contentForm.remove();
+- if @content.errors.any?
+  | contentsTop.append("#{j render 'contents/form'}");
+- else
+  | var contents = $('.contents');
+  | var content = $("#{j render @content}");
+  | content.prependTo(contents);
+  | content.autoLink();
+  | contentsTop.find('.add-content-btn').show();

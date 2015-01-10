@@ -1,8 +1,9 @@
 - content_for(:top) do
   .contents-top
-    h3 Quick links
-    ul.list-inline
-      li= link_to 'Add content', new_content_path, class: 'btn btn-primary'
+    h3 
+      | Your content
+      = link_to 'Add content', new_content_path, remote: true,
+        class: 'btn btn-primary pull-right add-content-btn'
 
 .contents
   = render @contents

@@ -12,6 +12,9 @@ class Content < ActiveRecord::Base
   # Validations
   validates_presence_of :url, :category_id
 
+  # Callbacks
+  after_create :create_default_messages
+
   # Class methods
 
   def self.with_messages_on(social_network_id)
@@ -21,6 +24,7 @@ class Content < ActiveRecord::Base
   # Instance methods
 
   def create_default_messages
+    return unless user
     user.accounts.implemented.each do |account|
       create_default_message(account.social_network)
     end

@@ -1,4 +1,4 @@
-= simple_form_for([@content, @message]) do |f|
+= simple_form_for [@content, @message], remote: true do |f|
   .form-inputs
     - if @accounts.count > 1
       = f.input :social_network_id, collection: @accounts,
@@ -8,6 +8,7 @@
     = f.input :text, label: false, input_html: {class: 'msg-text-input'}
 
   .form-actions
-    = f.button :submit, "Add message", class: 'btn btn-warning add-msg-btn', disabled: @message.overflow?
-    .msg-chars-left class=('overflow' if @message.overflow?)
+    = f.button :submit, "Save", class: 'btn btn-warning pull-right add-msg-btn', disabled: @message.overflow?
+    .msg-chars-left.pull-right class=('overflow' if @message.overflow?)
       = @message.chars_left
+    .clearfix

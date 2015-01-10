@@ -1,0 +1,11 @@
+| var content = $('#content#{@content.id}');
+| var msgForm = content.find('.new_message');
+| msgForm.remove();
+- if @message.errors.any?
+  | content.append("#{j render 'messages/form'}");
+- else
+  | var messages = content.find('.content-messages');
+  | var message = $("#{j render @message}");
+  | message.appendTo(messages);
+  | message.autoLink();
+  | content.find('.add-msg-btn').show();

@@ -1,5 +1,9 @@
 $(function() {
-  $('.msg-text-input').on('input', function() {
+  $('.msg-text').each(function() {
+    autoLink($(this));
+  });
+
+  $('.contents').on('input', '.msg-text-input', function() {
     var msgInput = $(this),
         charsCounter = $('.msg-chars-left'),
         submitBtn = msgInput.parents('.new_message').find('.add-msg-btn'),
@@ -18,3 +22,13 @@ $(function() {
     }
   });
 });
+
+function autoLink(message) {
+  message.html(twttr.txt.autoLink(message.text()));
+}
+
+(function($){
+  $.fn.autoLink = function(){
+    autoLink(this.find('.msg-text'));
+  }
+})(jQuery);

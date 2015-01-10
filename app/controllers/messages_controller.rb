@@ -4,10 +4,9 @@ class MessagesController < ApplicationController
   load_and_authorize_resource :message, through: :content
   layout "contents"
 
-  before_action :load_accounts
+  before_action :load_accounts, only: [:new]
 
   def new
-    @accounts = current_user.accounts.implemented
     if @accounts.count == 0
       flash[:warning] = "You need to connect an account before adding messages."
       redirect_to settings_path and return
@@ -25,10 +24,11 @@ class MessagesController < ApplicationController
 
   def create
     @message = @content.messages.build(message_params)
-    if @message.save
-      redirect_to contents_path
-    else
-      render :new
+    success = @message.save
+
+    respond_to do |format|
+      format.html { success ? redirect_to(contents_path) : render(:new) }
+      format.js
     end
   end
 
