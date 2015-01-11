@@ -28,3 +28,12 @@
     color: #d40d12;
   }
 }
+
+@media (min-width: 407px) and (max-width: 480px) {
+  .message {
+    .social-img-sm {
+      position: relative;
+      left: -10px;
+    }
+  }
+}
