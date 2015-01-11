@@ -7,4 +7,7 @@
     = f.input :title
 
   .form-actions
-    = f.button :submit, class: 'btn btn-primary pull-right add-content-btn'
+    .pull-right
+      = link_to 'Cancel', contents_path, class: 'btn btn-default hide-btn', data: {target: 'new_content', show: 'show-content-form'}
+      = f.button :submit, class: 'btn btn-primary add-content'
+  .clearfix

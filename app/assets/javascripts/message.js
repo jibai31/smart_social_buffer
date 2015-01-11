@@ -6,7 +6,7 @@ $(function() {
   $('.contents').on('input', '.msg-text-input', function() {
     var msgInput = $(this),
         charsCounter = $('.msg-chars-left'),
-        submitBtn = msgInput.parents('.new_message').find('.add-msg-btn'),
+        submitBtn = msgInput.parents('.new_message').find('.add-msg'),
         tweet = msgInput.val(),
         charsLeft = 140 - twttr.txt.getTweetLength(tweet);
 

@@ -2,10 +2,18 @@
   margin-bottom: 10px;
   overflow: hidden;
 
-  .add-content-btn {
+  .show-content-form {
     position: relative;
     top: -3px;
   }
+
+  .new_content {
+    margin-bottom: 20px;
+  }
+}
+
+.contents-top .hide-btn, .new_message .hide-btn {
+  margin-right: 5px;
 }
 
 .content {
@@ -17,13 +25,11 @@
     margin-bottom: 10px;
   }
 
-  .content-trash, .add-msg-btn {
+  .content-trash, .show-msg-form {
     opacity: 0;
   }
 }
 
-.content:hover {
-  .content-trash, .add-msg-btn {
-    opacity: 1;
-  }
+.content-header:hover .content-trash, .content:hover .show-msg-form {
+  opacity: 1;
 }

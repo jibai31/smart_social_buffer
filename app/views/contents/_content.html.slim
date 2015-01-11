@@ -15,6 +15,6 @@
   .content-messages.container-fluid
     = render content.messages
   = link_to 'Add message', new_content_message_path(content), remote: can?(:create, Message.new),
-    class: 'btn btn-default btn-warning pull-right add-msg-btn'
+    class: 'btn btn-default btn-warning pull-right show-msg-form'
 
   .clearfix

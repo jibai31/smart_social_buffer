@@ -8,7 +8,9 @@
     = f.input :text, label: false, input_html: {class: 'msg-text-input'}
 
   .form-actions
-    = f.button :submit, "Save", class: 'btn btn-warning pull-right add-msg-btn', disabled: @message.overflow?
-    .msg-chars-left.pull-right class=('overflow' if @message.overflow?)
-      = @message.chars_left
+    .pull-right
+      .msg-chars-left class=('overflow' if @message.overflow?)
+        = @message.chars_left
+      = link_to 'Cancel', contents_path, class: 'btn btn-default hide-btn', data: {target: 'new_message', show: 'show-msg-form'}
+      = f.button :submit, "Save", class: 'btn btn-warning pull-right add-msg', disabled: @message.overflow?
     .clearfix
