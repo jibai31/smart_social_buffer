@@ -42,6 +42,10 @@ class MessagesController < ApplicationController
 
   def destroy
     @message.destroy
+    respond_to do |format|
+      format.html { redirect_to contents_path }
+      format.js
+    end
   end
 
   private

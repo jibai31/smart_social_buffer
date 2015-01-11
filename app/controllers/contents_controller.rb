@@ -36,7 +36,10 @@ class ContentsController < ApplicationController
 
   def destroy
     @content.destroy
-    redirect_to contents_path
+    respond_to do |format|
+      format.html { redirect_to contents_path }
+      format.js
+    end
   end
 
   private

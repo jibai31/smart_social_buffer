@@ -17,13 +17,13 @@
     margin-bottom: 10px;
   }
 
-  .content-actions-buttons {
-    display: none;
+  .content-trash, .add-msg-btn {
+    opacity: 0;
   }
 }
 
 .content:hover {
-  .content-actions-buttons {
-    display: block;
+  .content-trash, .add-msg-btn {
+    opacity: 1;
   }
 }

@@ -1,5 +1,8 @@
-.message.row
+.message.row id="message#{message.id}"
   .col-sm-1
     .social-img-sm class="#{message.social_network.name}-sm"
   .col-sm-11
+    = link_to [message.content, message], data: {confirm: 'Are you sure?'}, method: :delete, remote: true,
+        class: 'pull-right msg-trash' do
+      b.glyphicon.glyphicon-trash
     .msg-text= message.text

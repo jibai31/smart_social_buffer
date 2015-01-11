@@ -1,5 +1,17 @@
 .content id="content#{content.id}"
-  = render 'contents/content_header', content: content
+
+  .content-header
+    = link_to content, data: {confirm: 'Are you sure?'}, method: :delete, remote: true,
+        class: 'pull-right content-trash' do
+      b.glyphicon.glyphicon-trash
+    .content-text
+      strong
+        = content.title
+        | &nbsp;
+        = render 'categories/category', category: content.category
+      br
+      = link_to content.url, content.url, target: "_blank"
+
   .content-messages.container-fluid
     = render content.messages
   = link_to 'Add message', new_content_message_path(content), remote: can?(:create, Message.new),
