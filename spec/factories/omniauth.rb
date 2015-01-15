@@ -4,7 +4,7 @@ FactoryGirl.define do
     uid: '12345',
     info: { name: 'John Doe', image: '' },
     credentials: { token: "abc_def", secret: "123_456" },
-    extra: { raw_info: { locale: "fr" } }
+    extra: { raw_info: { locale: "fr" }, access_token: { token: 'ABC', secret: '123' } }
   })
 
   OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({

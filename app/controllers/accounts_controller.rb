@@ -68,6 +68,13 @@ class AccountsController < Devise::OmniauthCallbacksController
   end
 
   def auth
-    request.env["omniauth.auth"]
+    @auth ||= strip_extra_data(request.env["omniauth.auth"])
+  end
+
+  def strip_extra_data(auth_data)
+    extra_data = auth_data['extra']
+    auth_data['extra'] = {}
+    auth_data['extra']['raw_info'] = extra_data['raw_info']
+    auth_data
   end
 end
