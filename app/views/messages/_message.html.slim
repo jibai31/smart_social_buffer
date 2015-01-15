@@ -2,7 +2,10 @@
   .col-xs-1
     .social-img-sm class="#{message.social_network.name}-sm"
   .col-xs-11
-    = link_to [message.content, message], data: {confirm: 'Are you sure?'}, method: :delete, remote: true,
-        class: 'pull-right msg-trash' do
-      b.glyphicon.glyphicon-trash
+    .msg-actions
+      = link_to [message.content, message], data: {confirm: 'Are you sure?'}, method: :delete, remote: true,
+          class: 'pull-right msg-btn' do
+        b.glyphicon.glyphicon-trash
+      = link_to edit_content_message_path(message.content, message), remote: true, class: 'pull-right msg-btn' do
+        b.glyphicon.glyphicon-pencil
     .msg-text= message.text

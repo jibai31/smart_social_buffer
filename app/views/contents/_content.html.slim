@@ -1,9 +1,12 @@
 .content id="content#{content.id}"
 
   .content-header
-    = link_to content, data: {confirm: 'Are you sure?'}, method: :delete, remote: true,
-        class: 'pull-right content-trash' do
-      b.glyphicon.glyphicon-trash
+    .content-actions
+      = link_to content, data: {confirm: 'Are you sure?'}, method: :delete, remote: true,
+          class: 'pull-right content-btn' do
+        b.glyphicon.glyphicon-trash
+      = link_to edit_content_path(content), remote: true, class: 'pull-right content-btn' do
+        b.glyphicon.glyphicon-pencil
     .content-text
       strong
         = content.title

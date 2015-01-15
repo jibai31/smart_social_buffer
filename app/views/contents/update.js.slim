@@ -1,0 +1,8 @@
+| var content = $('#content#{@content.id}');
+| var backup = content.find('.backup');
+- if @content.errors.any?
+  | content.find('.content-header').html("#{j render 'contents/form'}");
+- else
+  | var newContent = $("#{j render @content}");
+  | content.replaceWith(newContent);
+  | backup.remove();

@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   load_and_authorize_resource :message, through: :content
   layout "contents"
 
-  before_action :load_accounts, only: [:new]
+  before_action :load_accounts, only: [:new, :create, :edit, :update]
 
   def new
     if @accounts.count == 0
@@ -33,10 +33,10 @@ class MessagesController < ApplicationController
   end
 
   def update
-    if @message.update(message_params)
-      redirect_to contents_path
-    else
-      render :edit
+    success = @message.update(message_params)
+    respond_to do |format|
+      format.html { success ? redirect_to(contents_path) : render(:edit) }
+      format.js
     end
   end
 

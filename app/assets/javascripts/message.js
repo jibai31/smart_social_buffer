@@ -21,6 +21,17 @@ $(function() {
       submitBtn.removeAttr("disabled");
     }
   });
+
+  $('.contents').on('click', '.edit_message .hide-btn', function(e) {
+    e.preventDefault();
+
+    var item = $(this).closest('.message');
+    var backup = item.find('.msg-backup');
+    item.find('.msg-text').html(backup.html());
+    backup.remove();
+    item.find('.msg-actions').removeClass('hide');
+    item.closest('.content').find('.show-msg-form').removeClass('hide');
+  });
 });
 
 function autoLink(message) {

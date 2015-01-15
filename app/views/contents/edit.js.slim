@@ -1,0 +1,5 @@
+| var content = $('#content#{@content.id}');
+| var contentText = content.find('.content-header');
+| var backupContent = $("<div>").addClass('backup hide').html(contentText.html());
+| content.append(backupContent);
+| content.find('.content-header').html("#{j render 'contents/form'}");

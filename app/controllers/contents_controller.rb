@@ -27,10 +27,10 @@ class ContentsController < ApplicationController
   end
 
   def update
-    if @content.update(content_params)
-      redirect_to contents_path
-    else
-      render :edit
+    success = @content.update(content_params)
+    respond_to do |format|
+      format.html { success ? redirect_to(contents_path) : render(:edit) }
+      format.js
     end
   end
 

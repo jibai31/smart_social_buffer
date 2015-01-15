@@ -12,24 +12,48 @@
   }
 }
 
-.contents-top .hide-btn, .new_message .hide-btn {
+.hide-btn {
   margin-right: 5px;
 }
 
 .content {
   margin-bottom: 20px;
 
-  .content-header {
+  .content-header, .content-actions {
     background-color: #eff3f6;
+  }
+
+  .content-header {
+    position: relative;
     padding: 10px;
     margin-bottom: 10px;
   }
-
-  .content-trash, .show-msg-form {
-    opacity: 0;
-  }
 }
 
-.content-header:hover .content-trash, .content:hover .show-msg-form {
+// Show or hide the content action buttons
+.content-actions, .msg-actions {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  .content-btn, .msg-btn {
+    margin-left: 7px;
+  }
+}
+.content-actions {
+  padding: 10px 10px 3px 3px;
+}
+.msg-actions {
+  padding: 0 10px 10px 10px;
+}
+.content-header:hover .content-actions, .message:hover .msg-actions {
+  display: block;
+}
+
+.content .show-msg-form {
+  opacity: 0;
+}
+.content:hover .show-msg-form {
   opacity: 1;
 }

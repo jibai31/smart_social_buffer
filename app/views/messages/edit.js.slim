@@ -1,0 +1,7 @@
+| var msg = $('#message#{@message.id}');
+| var msgText = msg.find('.msg-text');
+| var backup = $("<div>").addClass('msg-backup hide').html(msgText.html());
+| msg.append(backup);
+| msg.find('.msg-actions').addClass('hide');
+| msg.closest('.content').find('.show-msg-form').addClass('hide');
+| msg.find('.msg-text').html("#{j render 'messages/form'}");

@@ -1,0 +1,11 @@
+| var message = $('#message#{@message.id}');
+| var content = message.closest('.content');
+| var backup = message.find('.msg-backup');
+- if @message.errors.any?
+  | message.find('.msg-text').html("#{j render 'messages/form'}");
+- else
+  | var newMessage = $("#{j render @message}");
+  | message.replaceWith(newMessage);
+  | content.find('.show-msg-form').removeClass('hide');
+  | newMessage.autoLink();
+  | backup.remove();
