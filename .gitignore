@@ -9,7 +9,6 @@
 
 # Ignore the environment and secret files.
 /.env
-secrets.yml
 
 # Ignore the database backups.
 /db/*.bak
