@@ -25,12 +25,12 @@
   display: inline-block;
 }
 
-.google-md { background: url("/assets/social/google-64.png"); }
-.facebook-md { background: url("/assets/social/facebook-64.png"); }
-.twitter-md { background: url("/assets/social/twitter-64.png"); } 
-.linkedin-md { background: url("/assets/social/linkedin-64.png"); }
+.google-md { background: image-url("social/google-64.png"); }
+.facebook-md { background: image-url("social/facebook-64.png"); }
+.twitter-md { background: image-url("social/twitter-64.png"); }
+.linkedin-md { background: image-url("social/linkedin-64.png"); }
 
-.google-sm {background: url("/assets/social/google-32.png");}
-.facebook-sm {background: url("/assets/social/facebook-32.png");}
-.twitter-sm {background: url("/assets/social/twitter-32.png");}
-.linkedin-sm {background: url("/assets/social/linkedin-32.png");}
+.google-sm {background: image-url("social/google-32.png");}
+.facebook-sm {background: image-url("social/facebook-32.png");}
+.twitter-sm {background: image-url("social/twitter-32.png");}
+.linkedin-sm {background: image-url("social/linkedin-32.png");}
