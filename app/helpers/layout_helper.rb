@@ -2,7 +2,7 @@ module LayoutHelper
 
   def get_alert_type(flash_type)
     case flash_type
-    when "alert"
+    when "alert", "error"
       "alert-danger"
     when "notice"
       "alert-success"
