@@ -8,10 +8,12 @@ class Planning < ActiveRecord::Base
   # Instance methods
 
   def current_week
+    initialize_coming_weeks if coming_weeks.empty?
     buffered_weeks.find_by_first_day(beginning_of_current_week)
   end
 
   def next_week
+    initialize_coming_weeks if coming_weeks.empty?
     buffered_weeks.find_by_first_day(beginning_of_next_week)
   end
 
