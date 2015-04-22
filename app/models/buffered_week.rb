@@ -1,6 +1,6 @@
 class BufferedWeek < ActiveRecord::Base
   belongs_to :planning
-  has_many :buffered_days, dependent: :destroy
+  has_many :buffered_days, -> {order :day}, dependent: :destroy
   has_many :buffered_posts, through: :buffered_days
 
   delegate :account, to: :planning
