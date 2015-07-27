@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.3'
+ruby '2.0.0'
 
 gem 'rails', '~>4.1.6'
 gem 'sass-rails', '~> 4.0.3'
@@ -44,6 +44,9 @@ group :development do
   gem 'spring'
   gem 'better_errors'
   gem 'quiet_assets'
+  gem 'capistrano-rails'
+  gem 'capistrano-passenger'
+  gem 'capistrano-rbenv'
 end
 
 group :development, :test do
