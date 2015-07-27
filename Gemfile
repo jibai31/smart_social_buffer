@@ -43,7 +43,7 @@ gem 'twitter-text'
 gem 'feedjira' # Requires: sudo apt-get install libcurl3-dev
 
 group :development do
-  gem 'spring'
+  # gem 'spring'
   gem 'better_errors'
   gem 'quiet_assets'
   gem 'capistrano-rails'
@@ -52,7 +52,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'spring-commands-rspec'
+  # gem 'spring-commands-rspec'
   gem 'rspec-rails'
 end
 
