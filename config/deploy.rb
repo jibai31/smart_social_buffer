@@ -11,6 +11,9 @@ set :rbenv_ruby, '2.0.0-p645'
 # set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 # set :rbenv_roles, :all # default value
 
+# Passenger
+set :passenger_restart_with_touch, true
+
 # Default value for :scm is :git
 # set :scm, :git
 
