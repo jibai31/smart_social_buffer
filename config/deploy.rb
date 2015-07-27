@@ -1,7 +1,6 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-set :application, 'smartpublish'
 set :repo_url, 'git@github.com:jibai31/smart_social_buffer.git'
 
 # rbenv
