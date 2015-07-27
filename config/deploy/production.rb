@@ -1,5 +1,5 @@
 server "ns3007379.ip-37-187-144.eu", user: 'smartpublish', roles: %w{app db web}
-set :branch, "cap"
+set :branch, "master"
 set :rails_env, "production"
 set :deploy_to, '/home/smartpublish/public_html'
 
