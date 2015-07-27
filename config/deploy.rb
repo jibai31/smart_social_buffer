@@ -7,6 +7,7 @@ set :repo_url, 'git@github.com:jibai31/smart_social_buffer.git'
 # rbenv
 set :rbenv_type, :system
 set :rbenv_ruby, '2.0.0-p645'
+set :default_env, { path: "/usr/local/rbenv/bin/:/usr/local/rbenv/shims/:$PATH" }
 # set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 # set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 # set :rbenv_roles, :all # default value
@@ -32,9 +33,6 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml', '.env')
 
 # Default value for linked_dirs is []
 set :linked_dirs, fetch(:linked_dirs, []).push('public/system')
-
-# Default value for default_env is {}
-set :default_env, { path: "/usr/local/rbenv/bin/:/usr/local/rbenv/shims/:$PATH" }
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
