@@ -1,4 +1,4 @@
-server "ns3007379.ip-37-187-144.eu", user: 'smartpublish', roles: %w{app db web}
+server "ns3007379.ip-37-187-144.eu", user: 'smartpublish_stg', roles: %w{app db web}
 set :branch, "staging"
 set :rails_env, "staging"
 set :deploy_to, '/home/smartpublish_stg/public_html'
