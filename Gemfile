@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '~>4.1.6'
+gem 'mysql2'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -12,9 +13,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Heroku config
 gem 'puma'
-gem 'pg'
-gem 'rack-timeout',   group: :production
-gem 'rails_12factor', group: :production
+gem 'therubyracer'
+# gem 'rack-timeout',   group: :production
+# gem 'rails_12factor', group: :production
 
 # Improvement gems
 gem 'slim-rails'
