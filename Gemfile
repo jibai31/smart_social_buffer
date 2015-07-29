@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
 
 gem 'rails', '~>4.1.6'
 gem 'mysql2'
@@ -43,6 +42,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-passenger'
   gem 'capistrano-rbenv'
+  gem 'capistrano3-delayed-job'
 end
 
 group :development, :test do
