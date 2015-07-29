@@ -70,10 +70,6 @@ set :linked_dirs, fetch(:linked_dirs, []).push('public/system')
 
 namespace :deploy do
 
-  # after :published, :restart do
-  #   invoke 'delayed_job:restart'
-  # end
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
