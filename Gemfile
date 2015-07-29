@@ -21,6 +21,7 @@ gem 'dotenv-rails'
 
 # Useful gems
 gem 'cancancan'
+gem "daemons"
 gem 'delayed_job_active_record'
 
 # Social sign in and apis
