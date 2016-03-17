@@ -64,6 +64,12 @@ set :linked_dirs, fetch(:linked_dirs, []).push('public/system')
 # default value 'bin'
 # set :delayed_job_bin_path, 'script' # for rails 3.x
 
+### Set the location of the delayed_job logfile
+# set :delayed_log_dir, 'log/delayed_job.log'
+
+#### Set the location of the delayed_job pid file
+set :delayed_job_pid_dir, ->{ "/tmp/#{fetch(:application)}" }
+
 # ------------------------------------------------------
 # Tasks
 # ------------------------------------------------------

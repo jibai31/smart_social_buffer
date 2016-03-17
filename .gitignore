@@ -14,6 +14,7 @@
 /db/*.bak
 
 # Ignore all logfiles and tempfiles.
+.DS_Store
 /log/*.log
 /tmp
 /coverage
